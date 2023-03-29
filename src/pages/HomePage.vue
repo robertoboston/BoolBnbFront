@@ -2,12 +2,35 @@
 export default {
     name: 'Homepage'
 }
+
 </script>
 <template lang="">
     <main>
-        <div>
-            <h1 class="text-center">Homepage</h1>
+        <div class="container">
+            <div class="row">
+                <div class="image-fluid">
+                    <img src="" alt="">
+                </div>
+                <form class="d-flex w-50" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-12 mt-4">
+                    <div class="card" style="width: 18rem;">
+                        <img :src="apartment.cover ? `${this.store.baseUrl}/storage/${apartment.cover}` : 'https://picsum.photos/300/200'" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ apartment.description }}</h4>
+                            <p class="card-text">{{ apartment.position.indirizzo }}</p>
+                            <h5 class="text-end fw-bolder">&euro; {{apartment.prezzo}} notte</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>
