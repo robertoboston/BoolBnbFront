@@ -17,4 +17,6 @@ export default {
   <AppFooter></AppFooter>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+@use './styles/app.scss' as *;
+</style>

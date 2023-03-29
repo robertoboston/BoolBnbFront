@@ -4,7 +4,7 @@ export default {
 }
 </script>
 <template lang="">
-    <div>
+    <div class="mt-5">
         <h1>Homepage</h1>
     </div>
 </template>
