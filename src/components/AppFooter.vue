@@ -5,7 +5,7 @@ export default {
 </script>
 <template lang="">
 <footer class="bg-white">
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row justify-content-between py-4">
 			
 			<div id="info-links" class="col-6">
@@ -42,6 +42,47 @@ export default {
 	</div>
 </footer>
 </template>
-<style lang="">
-    
+<style lang="scss" scoped>
+footer {
+    width: 100%;
+    border-top: 1px solid rgb(219, 219, 219);
+
+    .container {
+
+        #info-links {
+            a {
+                color: grey;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        #socials-icons {
+            a {
+                color: grey;
+
+
+                i {
+                    font-size: 1.25rem;
+                }
+
+            }
+        }
+
+        .fa-square-facebook:hover {
+            color: #3b5998;
+        }
+
+        .fa-square-twitter:hover {
+            color: #00acee;
+        }
+
+        .fa-square-instagram:hover {
+            color: #dd2a7b;
+        }
+    }
+}
 </style>
