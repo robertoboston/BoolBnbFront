@@ -1,14 +1,20 @@
-<script setup>
+<script>
 
+import AppHeader from './components/AppHeader.vue';
+import AppFooter from './components/AppFooter.vue';
+
+export default {
+  components: {
+    AppHeader,
+    AppFooter
+  }
+}
 </script>
 
 <template>
-  <div>
-
-  </div>
-
+  <AppHeader></AppHeader>
+  <router-view></router-view>
+  <AppFooter></AppFooter>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
