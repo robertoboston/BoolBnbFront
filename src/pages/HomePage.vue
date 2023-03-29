@@ -14,9 +14,10 @@ export default {
 			axios.get(`${this.store.baseUrl}apartments`).then((response) => {
 				if(response.data.success){
 		
-					this.apartments = response.data.apartments;
+					this.apartments = response.data.apartments.data;
 					this.loading = false;
 				}
+                console.log(this.apartments);
 		})
 	 },
 }
@@ -36,7 +37,7 @@ export default {
             </div>
             <div class="row">
                 <div class="col-12 mt-4">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" v-for="(apartment, index) in apartments" :key="index" style="width: 18rem;">
                         <img :src="apartment.cover ? `${this.store.baseUrl}/storage/${apartment.cover}` : 'https://picsum.photos/300/200'" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h4 class="card-title">{{ apartment.description }}</h4>
