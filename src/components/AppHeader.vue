@@ -9,7 +9,7 @@ export default {
 		<div class="container">
 			<a class="navbar-brand d-flex align-items-center py-0" href="{{ url('/') }}">
 				<div id="logo-container" class="d-flex align-items-center">
-					<img src="./image/bnb-logo.png" alt="bnb-logo" style="width: 60px" class="me-2">
+					<img src="../assets/images/bnb-logo.png" alt="bnb-logo" style="width: 60px" class="me-2">
 					<h2>bool</h2>
 					<h2 class="color-blue">b</h2>
 					<h2 class="color-yellow">n</h2>
@@ -33,17 +33,10 @@ export default {
 				<!-- Right Side Of Navbar -->
 				<ul class="navbar-nav ml-auto">
 					<!-- Authentication Links -->
-					@guest
-					<li class="nav-item">
-						<a class="nav-link" href="{{ route('login') }}"></a>
-					</li>
-					@if (Route::has('register'))
-					<li class="nav-item">
-						<a class="nav-link" href="{{ route('register') }}"></a>
-					</li>
-					@endif
-					@else
-					<li class="nav-item dropdown">
+
+                    <a href="#" class="text-black fw-bolder">Login</a>
+					
+					<!-- <li class="nav-item dropdown">
 						<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
 								
 						</a>
@@ -60,12 +53,45 @@ export default {
 								@csrf
 							</form>
 						</div>
-					</li>
-					@endguest
+					</li> -->
 				</ul>
 			  </div>
 		</div>
 	</nav>
 </header>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: 100%;
+
+    nav {
+        #logo-container {
+            h2 {
+                font-weight: 700;
+                margin-bottom: 0;
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .color-blue {
+            color: #3FA9F5;
+            ;
+        }
+
+        .color-yellow {
+            color: #FC9D15;
+        }
+
+        .color-red {
+            color: #E33F3D;
+        }
+    }
+}
+</style>

@@ -4,10 +4,10 @@ export default {
 }
 </script>
 <template lang="">
-    <div class="mt-5">
-        <h1>Homepage</h1>
-    </div>
+    <main>
+        <div>
+            <h1 class="text-center">Homepage</h1>
+        </div>
+    </main>
 </template>
-<style lang="">
-    
-</style>
+<style lang="scss" scoped></style>
