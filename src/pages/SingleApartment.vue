@@ -14,6 +14,7 @@ export default {
     created(){
         axios.get(`${this.store.baseUrl}apartments/${this.$route.params.slug}`).then((response) => {
             this.apartment = response.data.apartment;
+            console.log(this.apartment.cover)
         })
 
     }
@@ -23,7 +24,20 @@ export default {
 
 <template lang="">
     <main class="mt-5">
-        <h1>{{apartment.descrizione}}</h1>
+        <div class="container">
+            <div class="row">
+                <h1>{{apartment.descrizione}}</h1>
+                <img :src="apartment.cover ? `${this.store.baseUrl}/storage/${apartment.cover}` : 'https://picsum.photos/300/200'" class="card-img-top" alt="...">
+                <h2>Prezzo per notte: {{apartment.prezzo}}&euro;</h2>
+                <h2>Indirizzo: {{ apartment.position.indirizzo }}</h2>
+                <h2>Numero civico: {{ apartment.position.N_civico}}</h2>
+            </div>
+            <div class="mt-5">
+                <router-link :to="{name: 'homepage'}" class="btn btn-sm btn-success">
+                    Torna alla Homepage
+                </router-link>
+            </div>
+        </div>
     </main>
 </template>
 
