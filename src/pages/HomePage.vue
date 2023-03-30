@@ -41,11 +41,18 @@ export default {
                 <div class="image-fluid">
                     <img src="" alt="">
                 </div>
-				</div>
+			</div>
 				<div class="row justify-content-center">
 
 					<Searchbar @search="filteredApartments"> </Searchbar>
 				</div>
+
+                <div class="col-12 w-100 d-flex justify-content-center">
+                    <div v-if="loading" class="d-flex justify-content-center">
+                        <div class="spinner-border"></div>
+                    </div>
+                </div>
+
             <div class="row">
                 <div class="col-12 mt-4 d-flex flex-wrap gap-5">
                     <div class="card" v-for="(apartment, index) in apartments" :key="index" style="width: 18rem;">
