@@ -3,7 +3,7 @@ import axios from 'axios';
 import {store} from '../store.js';
 import Searchbar from '../components/Searchbar.vue';
 export default {
-	name: 'SingleApartment',
+	name: 'AdvancedSearch',
 	components: {
 		Searchbar
 	},
