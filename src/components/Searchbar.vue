@@ -17,14 +17,15 @@ export default {
 			nazione: '',
 			lat: '',
 			lon: '',
+			search: ''
 		}	
 	},
 	methods: {
 		//metodo per mostrare i suggerimenti nel dropdown
 		getSugg(){
-			axios.get(`${this.baseUrl}${store.searchText}.json?key=${this.key}`).then( response => {
+			axios.get(`${this.baseUrl}${this.search}.json?key=${this.key}`).then( response => {
 				this.dropdown = true;
-				console.log(response.data);
+				//console.log(response.data);
 				const results = response.data.results;
 				this.suggerimenti = results.slice(0,5);
 			})
@@ -37,7 +38,7 @@ export default {
 			this.nazione = item.address.country;
 			this.lat = parseFloat(item.position.lat);
 			this.lon = parseFloat(item.position.lon);
-			store.searchText = item.address.freeformAddress;
+			this.search = item.address.freeformAddress;
 			this.dropdown = false;
 		}
 	}
@@ -47,8 +48,8 @@ export default {
 <template>
 	<div id="search-container" class="p-0">
 		<div id="searchbar" class="d-flex py-1 px-2 align-items-center rounded-5 mb-2 w-100">
-			<i class="fa-solid fa-magnifying-glass mx-2" @click="$emit('search')"></i>
-			<input type="search" class="w-100" placeholder="inserisci luogo" @keyup.enter="$emit('search')" v-model="store.searchText" @keyup="getSugg" id="inputSearch">
+			<i class="fa-solid fa-magnifying-glass mx-2" @click="$emit('search', `${search}`)"></i>
+			<input type="search" class="w-100" placeholder="inserisci luogo" @keyup.enter="$emit('search', `${search}`)" v-model="search" @keyup="getSugg" id="inputSearch">
 		</div>
 		<!-- dropdown -->
 		<ul id="dropdown-sugg" v-if="this.dropdown" class="rounded-3 bg-light list-unstyled w-100">
