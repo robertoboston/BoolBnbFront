@@ -43,6 +43,9 @@ export default {
                             <h4 class="card-title">{{ apartment.description }}</h4>
                             <p class="card-text">{{ apartment.position.indirizzo }}</p>
                             <h5 class="text-end fw-bolder">&euro; {{apartment.prezzo}} notte</h5>
+                            <router-link :to="{name: 'single-apartment', params: {slug: apartment.slug} }" class="btn btn-sm btn-success">
+                                Vai all'appartamento
+                            </router-link>
                         </div>
                     </div>
                 </div>
