@@ -1,12 +1,12 @@
 <script>
 import axios from 'axios';
 import { store } from '../store';
+import Searchbar from '../components/Searchbar.vue';
 export default {
     name: 'Homepage',
-    props:{
-        apartment: Object
-
-    },
+	 components: {
+		Searchbar
+	 },
 	 data(){
 		return{
 			store,
@@ -25,6 +25,12 @@ export default {
                 console.log(this.apartments);
 		})
 	 },
+	//  methods: {
+	// 	filteredApartments(){
+	// 		axios.get(`${this.store.baseUrl}apartments`).then((response) => {
+	// 	})
+	// 	}
+	//  },
 }
 
 </script>
@@ -35,11 +41,11 @@ export default {
                 <div class="image-fluid">
                     <img src="" alt="">
                 </div>
-                <form class="d-flex w-50" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
+				</div>
+				<div class="row justify-content-center">
+
+					<Searchbar @search="filteredApartments"> </Searchbar>
+				</div>
             <div class="row">
                 <div class="col-12 mt-4 d-flex flex-wrap gap-5">
                     <div class="card" v-for="(apartment, index) in apartments" :key="index" style="width: 18rem;">
