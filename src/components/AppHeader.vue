@@ -33,8 +33,15 @@ export default {
 				<!-- Right Side Of Navbar -->
 				<ul class="navbar-nav ml-auto">
 					<!-- Authentication Links -->
-
+                <div class="mx-3">
                     <a href="http://127.0.0.1:8000/login" class="text-black fw-bolder">Login</a>
+				</div>
+				<div>
+					<a href="http://127.0.0.1:8000/register" class="text-black fw-bolder">Register</a>
+				</div>
+                    
+                    
+
 					
 					<!-- <li class="nav-item dropdown">
 						<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
