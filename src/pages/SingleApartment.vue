@@ -24,20 +24,25 @@ export default {
 
 <template lang="">
     <main class="mt-5">
-        <div class="container">
+        <div class="container d-flex">
             <div class="row">
                 <h1>{{apartment.descrizione}}</h1>
                 <img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'" class="w-50" alt="{{apartment.descrizione}}">
                 <h2>Prezzo per notte: {{apartment.prezzo}}&euro;</h2>
                 <h2>Indirizzo: {{ apartment.position.indirizzo }}, {{ apartment.position.N_civico}}, {{apartment.position.città}}, {{apartment.position.Nazione}}</h2> 
+                <h2>Stanze: {{apartment.numero_di_stanze}}</h2>
+                <h2>Bagni: {{apartment.numero_di_bagni}}</h2>
+                <h2>Metri Quadri: {{apartment.metri_quadri}}mq</h2>
+
+
                 <h4>Servizi:</h4>
                 <ul v-for="(service, index) in apartment.services" :key="index">
                     <li>{{service.nome}}</li>
                 </ul>
             </div>
             <div class="mt-5">
-                <router-link :to="{name: 'homepage'}" class="btn btn-sm btn-success">
-                    Torna alla Homepage
+                <router-link :to="{name: 'homepage'}" class="btn btn-success">
+                    Homepage
                 </router-link>
             </div>
             
