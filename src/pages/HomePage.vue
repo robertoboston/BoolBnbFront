@@ -41,7 +41,7 @@ export default {
                 </form>
             </div>
             <div class="row">
-                <div class="col-12 mt-4">
+                <div class="col-12 mt-4 d-flex gap-5">
                     <div class="card" v-for="(apartment, index) in apartments" :key="index" style="width: 18rem;">
                         <img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'" class="card-img-top" alt="...">
                         <div class="card-body">
