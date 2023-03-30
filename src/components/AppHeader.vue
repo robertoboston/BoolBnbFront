@@ -7,7 +7,7 @@ export default {
     <header>
 	<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
 		<div class="container">
-			<a class="navbar-brand d-flex align-items-center py-0" href="{{ url('/') }}">
+			<a class="navbar-brand d-flex align-items-center py-0" href="http://localhost:5173/">
 				<div id="logo-container" class="d-flex align-items-center">
 					<img src="../assets/images/bnb-logo.png" alt="bnb-logo" style="width: 60px" class="me-2">
 					<h2>bool</h2>
@@ -34,7 +34,7 @@ export default {
 				<ul class="navbar-nav ml-auto">
 					<!-- Authentication Links -->
 
-                    <a href="#" class="text-black fw-bolder">Login</a>
+                    <a href="http://127.0.0.1:8000/login" class="text-black fw-bolder">Login</a>
 					
 					<!-- <li class="nav-item dropdown">
 						<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
