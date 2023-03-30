@@ -29,8 +29,7 @@ export default {
                 <h1>{{apartment.descrizione}}</h1>
                 <img :src="apartment.cover ? `${this.store.baseUrl}/storage/${apartment.cover}` : 'https://picsum.photos/300/200'" class="card-img-top" alt="...">
                 <h2>Prezzo per notte: {{apartment.prezzo}}&euro;</h2>
-                <h2>Indirizzo: {{ apartment.position.indirizzo }}, {{ apartment.position.N_civico}}, {{apartment.position.città}}, {{apartment.position.Nazione}}</h2>
-                
+                <h2>Indirizzo: {{ apartment.position.indirizzo }}, {{ apartment.position.N_civico}}, {{apartment.position.città}}, {{apartment.position.Nazione}}</h2> 
             </div>
             <div class="mt-5">
                 <router-link :to="{name: 'homepage'}" class="btn btn-sm btn-success">
