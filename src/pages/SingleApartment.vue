@@ -36,6 +36,7 @@ export default {
                     Torna alla Homepage
                 </router-link>
             </div>
+            
         </div>
     </main>
 </template>
