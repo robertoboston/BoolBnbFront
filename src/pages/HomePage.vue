@@ -11,26 +11,40 @@ export default {
 		return{
 			store,
 			loading: true,
-			apartments: []
+			apartments: [],
+            apartmentsToShow: []
 		}
 	 },
 	 mounted() {
-           
-			axios.get(`${this.store.baseUrl}api/apartments`).then((response) => {
-				if(response.data.success){
-		
-					this.apartments = response.data.apartments.data;
-					this.loading = false;
-				}
-                console.log(this.apartments);
-		})
-	 },
-	//  methods: {
-	// 	filteredApartments(){
-	// 		axios.get(`${this.store.baseUrl}apartments`).then((response) => {
-	// 	})
-	// 	}
-	//  },
+        axios.get(`${this.store.baseUrl}api/apartments`).then((response) => {
+            if(response.data.success){
+                this.apartments = response.data.apartments.data;
+                this.apartmentsToShow = this.apartments
+                this.loading = false;
+            }
+        })
+    },
+    methods: {
+        filteredApartments(search){
+            //console.log(search);
+            this.apartmentsToShow = this.apartments;
+            axios.get('https://api.tomtom.com/search/2/geocode/' + search +'.json?key=' + this.store.TOMTOM_KEY).then((response) => {
+                //console.log(response);
+                let positionResponse = response.data.results[0].position;
+                this.apartmentsToShow = this.apartments.filter((apartment) => this.distance(positionResponse.lat, positionResponse.lon, apartment.position.Latitudine, apartment.position.Longitudine) <= 20);
+                console.log(this.apartmentsToShow);
+            })
+        },
+        distance(lat1, lon1, lat2, lon2) {
+            var p = 0.017453292519943295;    // Math.PI / 180
+            var c = Math.cos;
+            var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+                    c(lat1 * p) * c(lat2 * p) * 
+                    (1 - c((lon2 - lon1) * p))/2;
+
+            return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+        }
+    }
 }
 
 </script>
@@ -48,7 +62,7 @@ export default {
 				</div>
             <div class="row">
                 <div class="col-12 mt-4 d-flex flex-wrap gap-5">
-                    <div class="card" v-for="(apartment, index) in apartments" :key="index" style="width: 18rem;">
+                    <div class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index" style="width: 18rem;">
                         <img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h4 class="card-title">{{ apartment.descrizione }}</h4>
