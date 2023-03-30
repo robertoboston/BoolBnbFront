@@ -11,12 +11,9 @@ export default {
         }
 
     },
-    mounted(){
-        console.log(this.$route.params.slug)
+    created(){
         axios.get(`${this.store.baseUrl}apartments/${this.$route.params.slug}`).then((response) => {
-            this.apartment = response.data.apartment
-            console.log(this.apartment.descrizione)
-            
+            this.apartment = response.data.apartment;
         })
 
     }
@@ -25,11 +22,11 @@ export default {
 </script>
 
 <template lang="">
-    <div>
+    <main class="mt-5">
         <h1>{{apartment.descrizione}}</h1>
-    </div>
+    </main>
 </template>
 
-<style lang="">
+<style lang="scss" scoped>
     
 </style>
