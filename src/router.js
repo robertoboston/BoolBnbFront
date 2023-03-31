@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 import HomePage from './pages/HomePage.vue';
 import SingleApartment from './pages/SingleApartment.vue'
+import AdvancedSearch from './pages/AdvancedSearch.vue'
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -14,7 +15,12 @@ const router = createRouter({
         {
             path: '/apartment/:slug',
             name: 'single-apartment',
-            component : SingleApartment
+            component: SingleApartment
+        },
+        {
+            path: '/advanced-search/:search',
+            name: 'advanced-search',
+            component: AdvancedSearch
         }
     ]
 });

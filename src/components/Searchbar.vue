@@ -11,16 +11,42 @@ export default {
 			key: 'RyyEkTjOzu8ryYUL5416kcB3qFRzzpOR',
 			suggerimenti: [],
 			dropdown: false,
-			indirizzo: '',
-			civico: '',
-			città: '',
-			nazione: '',
-			lat: '',
-			lon: '',
 			search: ''
 		}	
 	},
+	mounted(){
+		if(this.$route.name == 'advanced-search'){
+		 this.search = this.$route.params.search;
+		}
+	},
 	methods: {
+		positionClick(item){
+
+			this.search = '';
+
+			if(item.address.streetName)
+				this.search = item.address.streetName + ", ";
+			if(item.address.streetNumber)
+				this.search += item.address.streetNumber + ", ";
+			if(item.address.countrySecondarySubdivision)
+				this.search += item.address.countrySecondarySubdivision + ", ";
+			if(item.address.country)
+				this.search += item.address.country;
+
+			if(this.$route.name == 'homepage'){
+				console.log('ciao');
+				this.$router.push({ 
+					name: 'advanced-search', 
+					params: { search: this.search } 
+				})
+			}
+			else if(this.$route.name == 'advanced-search'){
+				this.$emit('search', item.position.lat, item.position.lon);
+    	}
+			
+			this.dropdown = false;
+
+		},
 		//metodo per mostrare i suggerimenti nel dropdown
 		getSugg(){
 			axios.get(`${this.baseUrl}${this.search}.json?key=${this.key}`).then( response => {
@@ -29,17 +55,6 @@ export default {
 				const results = response.data.results;
 				this.suggerimenti = results.slice(0,5);
 			})
-		},
-		//metodo per selezionare un suggerimento
-		pickAddress(item){
-			this.via = item.address.streetName;
-			this.civico = item.address.streetNumber;
-			this.città = item.address.countrySecondarySubdivision;
-			this.nazione = item.address.country;
-			this.lat = parseFloat(item.position.lat);
-			this.lon = parseFloat(item.position.lon);
-			this.search = item.address.freeformAddress;
-			this.dropdown = false;
 		}
 	}
 }
@@ -48,12 +63,12 @@ export default {
 <template>
 	<div id="search-container" class="p-0">
 		<div id="searchbar" class="d-flex py-1 px-2 align-items-center rounded-5 mb-2 w-100">
-			<i class="fa-solid fa-magnifying-glass mx-2" @click="$emit('search', `${search}`)"></i>
-			<input type="search" class="w-100" placeholder="inserisci luogo" @keyup.enter="$emit('search', `${search}`)" v-model="search" @keyup="getSugg" id="inputSearch">
+			<i class="fa-solid fa-magnifying-glass mx-2"></i>
+			<input type="search" class="w-100" placeholder="inserisci luogo" v-model="search" @keyup="getSugg" id="inputSearch">
 		</div>
 		<!-- dropdown -->
 		<ul id="dropdown-sugg" v-if="this.dropdown" class="rounded-3 bg-light list-unstyled w-100">
-			<li v-for="item in suggerimenti" :key="item.id" class="p-2" @click="pickAddress(item)">
+			<li v-for="item in suggerimenti" :key="item.id" class="p-2" @click="positionClick(item)">
 				<i class="fa-solid fa-location-dot me-1"></i>
 				{{ item.address.country }}  {{ item.address.countrySecondarySubdivision }} {{ item.address.countrySubdivision }} {{ item.address.freeformAddress }}
 			</li>
