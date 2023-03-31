@@ -52,10 +52,19 @@ export default {
 					<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
 						aria-labelledby="offcanvasRightLabel">
 						<div class="offcanvas-header">
-							<h3 class="offcanvas-title" id="offcanvasRightLabel">Invia un messaggio al proprietario</h3>
+							<h4 class="offcanvas-title" id="offcanvasRightLabel">Invia un messaggio al proprietario</h4>
 						</div>
 						<!-- Form messaggio -->
 						<div class="offcanvas-body">
+							<div class="bg-light p-3 rounded mb-3">
+								<div class="mb-2">
+									<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
+										class="w-100 rounded" alt="{{apartment.descrizione}}">
+								</div>
+								<p class="mb-2 fw-bold">{{ apartment.descrizione }}</p>
+								<p class="m-0">{{ apartment.position.indirizzo }} {{ apartment.position.N_civico }}, {{
+									apartment.position.città }}, {{ apartment.position.Nazione }}</p>
+							</div>
 							<form action="">
 								<!-- Nome e Cognome -->
 								<div class="row">
@@ -147,11 +156,6 @@ export default {
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="mt-5">
-				<router-link :to="{ name: 'homepage' }" class="btn btn-success">
-					Homepage
-				</router-link>
 			</div>
 
 		</div>
