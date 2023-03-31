@@ -34,10 +34,9 @@ export default {
 				this.search += item.address.country;
 
 			if(this.$route.name == 'homepage'){
-				console.log('ciao');
 				this.$router.push({ 
 					name: 'advanced-search', 
-					params: { search: this.search } 
+					params: { search: this.search , lat: item.position.lat, lon: item.position.lon} 
 				})
 			}
 			else if(this.$route.name == 'advanced-search'){
