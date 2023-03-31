@@ -49,7 +49,7 @@ export default {
 						data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
 						title="Invia un messaggio al proprietario"><i class="fa-solid fa-message"></i></button>
 
-					<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+					<div class="offcanvas offcanvas-end offcanvas_size" tabindex="-1" id="offcanvasRight"
 						aria-labelledby="offcanvasRightLabel">
 						<div class="offcanvas-header">
 							<h4 class="offcanvas-title" id="offcanvasRightLabel">Invia un messaggio al proprietario</h4>
@@ -165,6 +165,11 @@ export default {
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
 
+
+.offcanvas_size {
+	width: 100%;
+}
+
 .message_button_position {
 	margin-right: 2rem;
 	margin-bottom: 2rem;
@@ -204,6 +209,13 @@ export default {
 			height: 1.5rem;
 			vertical-align: text-bottom;
 		}
+	}
+}
+
+
+@media screen and (min-width: 600px) {
+	.offcanvas_size {
+		width: 500px;
 	}
 }
 </style>
