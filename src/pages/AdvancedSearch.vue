@@ -46,7 +46,7 @@ export default {
 		},
 		filteredByService() {
 			for (let serviceFilter in this.serviceFilters) {
-				this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => apartment.services.find((apart) => serviceFilter.id))
+				this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => apartment.services.filter((service) => service.id == serviceFilter.id))
 			}
 		},
 		syncServiceFilter(service) {
