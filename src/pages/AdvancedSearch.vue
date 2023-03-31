@@ -12,24 +12,28 @@ export default {
 			store,
 			apartments: [],
 			apartmentsToShow: [],
-			service: ['wifi','Lavatrice','Aria condizionata','Spazio di lavoro dedicato','Asciugacapelli','Cucina','Asciugatrice','Riscaldamento','TV','Ferro da stiro','Piscina','Parcheggio gratuito nella proprietà','Culla','Griglia per barbecue','Camino','Idromassaggio','Postazione di ricarica per veicoli elettrici']
+			services: [],
+			serviceFilters: [],
+			kilometers: 20
 		}
 	},
 	mounted(){
-		axios.get(`${this.store.baseUrl}api/apartments`).then((response) => {
+		this.filteredApartmentsByPosition(this.$route.params.lat, this.$route.params.lon);
+		axios.get(`${this.store.baseUrl}api/services`).then((response) => {
 			if(response.data.success){
-					this.apartments = response.data.apartments.data;
-					console.log(this.apartments)
-					this.apartmentsToShow = this.apartments;
-					this.loading = false;
+					this.services = response.data.services;
 			}
-    })
+		})
 	},
 	methods: {
-		filteredApartments(searchLat, searchLon){
-            //console.log(search);
-            this.apartmentsToShow = this.apartments;
-            this.apartmentsToShow = this.apartments.filter((apartment) => this.distance(searchLat, searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= 20);
+		filteredApartmentsByPosition(searchLat, searchLon){
+			axios.get(`${this.store.baseUrl}api/apartments`).then((response) => {
+				if(response.data.success){
+						this.apartments = response.data.apartments.data;
+						this.apartmentsToShow = this.apartments.filter((apartment) => this.distance(searchLat, searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers);
+						this.loading = false;
+				}
+			});
     },
 		distance(lat1, lon1, lat2, lon2) {
 				let p = 0.017453292519943295;    // Math.PI / 180
@@ -39,15 +43,29 @@ export default {
 								(1 - c((lon2 - lon1) * p))/2;
 
 				return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
-    }
-	}
+    },
+		filteredByService(){
+			for(let serviceFilter in this.serviceFilters){
+				this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => apartment.services.find((apart) => serviceFilter.id))
+			}
+		},
+		syncServiceFilter(service){
+			if(!this.serviceFilters.find(() => service.id)){
+				this.serviceFilters.push(service.id);
+			}
+			else{
+				this.serviceFilters.pop(service.id);
+			}
+			console.log(this.serviceFilters)
+		}
+	}	
 	
 }
 </script>
 <template>
 	<main>
 		<div class="container">
-			<Searchbar @search="filteredApartments"> </Searchbar>
+			<Searchbar @search="filteredApartmentsByPosition"> </Searchbar>
 		</div>	
 		<div class="container">
 			<div class="row">
@@ -67,13 +85,13 @@ export default {
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="modal-body" v-for="(service,index) in service" :key="index">
-							<input type="checkbox" value="{{ service }}">
-							<label for="">{{ service }}</label>
+                      <div class="modal-body" v-for="(service,index) in services" :key="index">
+												<input type="checkbox" value="{{ service.id }}" @change="syncServiceFilter(service)">
+												<label for="">{{ service.nome }}</label>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                        <button type="button" class="btn btn-primary" @click="filteredByService">Applica filtri</button>
                       </div>
                     </div>
                   </div>
