@@ -20,6 +20,10 @@ export default {
 <style lang="scss" scoped>
 @use './styles/app.scss' as *;
 
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
 body {
   min-height: 100vh;
   position: relative;
