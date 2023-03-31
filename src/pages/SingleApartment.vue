@@ -49,11 +49,10 @@ export default {
 						data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
 						title="Invia un messaggio al proprietario"><i class="fa-solid fa-message"></i></button>
 
-					<div class="offcanvas offcanvas-end w-75" tabindex="-1" id="offcanvasRight"
+					<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
 						aria-labelledby="offcanvasRightLabel">
 						<div class="offcanvas-header">
-							<h5 class="offcanvas-title" id="offcanvasRightLabel">Invia un messaggio al proprietario</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+							<h3 class="offcanvas-title" id="offcanvasRightLabel">Invia un messaggio al proprietario</h3>
 						</div>
 						<!-- Form messaggio -->
 						<div class="offcanvas-body">
@@ -75,22 +74,35 @@ export default {
 										</div>
 									</div>
 								</div>
+								<!-- Email -->
 								<div class="row">
 									<div class="col">
-										<div class="form-floating">
-											<textarea class="form-control message_container"
-												placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
-											<label for="floatingTextarea2">Comments</label>
+										<div class="form-floating mb-3">
+											<input type="email" class="form-control" id="floatingInput"
+												placeholder="name@gmail.com">
+											<label for="floatingInput">Indirizzo Email</label>
 										</div>
 									</div>
 								</div>
+								<!-- Messaggio -->
 								<div class="row">
 									<div class="col">
 										<div class="form-floating">
 											<textarea class="form-control message_container"
 												placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
-											<label for="floatingTextarea2">Comments</label>
+											<label for="floatingTextarea2">Messaggio</label>
 										</div>
+									</div>
+								</div>
+								<!-- Submit -->
+								<div class="row mt-3">
+									<div class="col">
+										<button class="btn message_form_dismiss_button text-white w-100" type="button"
+											data-bs-dismiss="offcanvas">Annulla</button>
+									</div>
+									<div class="col">
+										<button class="btn message_form_submit_button text-white w-100"
+											type="submit">Invia</button>
 									</div>
 								</div>
 							</form>
@@ -170,6 +182,14 @@ export default {
 
 .message_container {
 	height: 100px;
+}
+
+.message_form_dismiss_button {
+	background-color: $brand-red;
+}
+
+.message_form_submit_button {
+	background-color: $brand-blue;
 }
 
 #apartment-card {
