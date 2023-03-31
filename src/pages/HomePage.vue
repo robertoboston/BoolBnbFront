@@ -24,27 +24,6 @@ export default {
             }
         })
     },
-    methods: {
-        filteredApartments(search){
-            //console.log(search);
-            this.apartmentsToShow = this.apartments;
-            axios.get('https://api.tomtom.com/search/2/geocode/' + search +'.json?key=' + this.store.TOMTOM_KEY).then((response) => {
-                //console.log(response);
-                let positionResponse = response.data.results[0].position;
-                this.apartmentsToShow = this.apartments.filter((apartment) => this.distance(positionResponse.lat, positionResponse.lon, apartment.position.Latitudine, apartment.position.Longitudine) <= 20);
-                console.log(this.apartmentsToShow);
-            })
-        },
-        distance(lat1, lon1, lat2, lon2) {
-            var p = 0.017453292519943295;    // Math.PI / 180
-            var c = Math.cos;
-            var a = 0.5 - c((lat2 - lat1) * p)/2 + 
-                    c(lat1 * p) * c(lat2 * p) * 
-                    (1 - c((lon2 - lon1) * p))/2;
-
-            return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
-        }
-    }
 }
 
 </script>
@@ -58,7 +37,7 @@ export default {
 			</div>
 				<div class="row justify-content-center">
 
-					<Searchbar @search="filteredApartments"> </Searchbar>
+					<Searchbar> </Searchbar>
 				</div>
 
                 <div class="col-12 w-100 d-flex justify-content-center">
