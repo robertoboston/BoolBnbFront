@@ -2,10 +2,12 @@
 import axios from 'axios';
 import { store } from '../store.js';
 import Searchbar from '../components/Searchbar.vue';
+import ApartmentCard from '../components/ApartmentCard.vue';
 export default {
 	name: 'AdvancedSearch',
 	components: {
-		Searchbar
+		Searchbar,
+		ApartmentCard
 	},
 	data() {
 		return {
@@ -99,7 +101,8 @@ export default {
 					</div>
 				</div>
 				<div class="col-12 mt-4 d-flex flex-wrap gap-5">
-					<div class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index"
+					<ApartmentCard v-for="(item, index) in this.apartmentsToShow" :key="index" :apartment="item"> </ApartmentCard>
+					<!-- <div class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index"
 						style="width: 18rem;">
 						<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
 							class="card-img-top" alt="...">
@@ -113,7 +116,7 @@ export default {
 								Vai all'appartamento
 							</router-link>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
