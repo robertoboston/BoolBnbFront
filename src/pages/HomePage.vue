@@ -2,17 +2,19 @@
 import axios from 'axios';
 import { store } from '../store';
 import Searchbar from '../components/Searchbar.vue';
+import ApartmentCard from '../components/ApartmentCard.vue';
 export default {
     name: 'Homepage',
 	 components: {
-		Searchbar
+		Searchbar,
+		ApartmentCard
 	 },
 	 data(){
 		return{
 			store,
 			loading: true,
 			apartments: [],
-            apartmentsToShow: []
+         apartmentsToShow: []
 		}
 	 },
 	 mounted() {
@@ -46,8 +48,9 @@ export default {
                     </div>
                 </div>
 
-            <div class="row">
-                <div class="col-12 mt-4 d-flex flex-wrap gap-5">
+            <div class="row justify-content-between gap-5 my-5">
+					<ApartmentCard v-for="(item, index) in this.apartmentsToShow" :key="index" :apartment="item"> </ApartmentCard>
+                <!-- <div class="col-12 mt-4 d-flex flex-wrap gap-5">
                     <div class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index" style="width: 18rem;">
                         <img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -59,7 +62,7 @@ export default {
                             </router-link>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </main>
