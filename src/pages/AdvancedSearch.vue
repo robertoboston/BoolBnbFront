@@ -32,7 +32,7 @@ export default {
 			axios.get(`${this.store.baseUrl}api/apartments`).then((response) => {
 				if (response.data.success) {
 					this.apartments = response.data.apartments.data;
-					this.apartmentsToShow = this.apartments.filter((apartment) => this.distance(searchLat, searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers);
+					this.apartments = this.apartmentsToShow = this.apartments.filter((apartment) => this.distance(searchLat, searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers);
 					this.loading = false;
 				}
 			});
@@ -47,15 +47,25 @@ export default {
 			return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 		},
 		filteredByService() {
-			for (let serviceFilter in this.serviceFilters) {
-				this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => apartment.services.filter((service) => service.id == serviceFilter.id))
+			this.apartmentsToShow = this.apartments
+			for(let i in this.serviceFilters) {
+				console.log(this.serviceFilters[i])
+				this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
+					for(let k in apartment.services){
+						console.log(apartment.services[k].id)
+						if(apartment.services[k].id === this.serviceFilters[i])
+							return apartment;
+					}
+				})
 			}
+			console.log(this.apartmentsToShow)
 		},
 		syncServiceFilter(service) {
-			if (!this.serviceFilters.find(() => service.id)) {
+			if(!this.serviceFilters.includes(service.id)){
 				this.serviceFilters.push(service.id);
 			}
 			else {
+				console.log('elimino')
 				this.serviceFilters.pop(service.id);
 			}
 			console.log(this.serviceFilters)
@@ -101,8 +111,15 @@ export default {
 					</div>
 				</div>
 				<div class="col-12 mt-4 d-flex flex-wrap gap-5">
+
 					<ApartmentCard v-for="(item, index) in this.apartmentsToShow" :key="index" :apartment="item"> </ApartmentCard>
 					<!-- <div class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index"
+
+					<div v-if="apartmentsToShow.length == 0">
+
+					</div>
+					<div v-else class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index"
+
 						style="width: 18rem;">
 						<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
 							class="card-img-top" alt="...">
