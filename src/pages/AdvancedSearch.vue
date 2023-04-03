@@ -30,11 +30,8 @@ export default {
 		axios.get(`${this.store.baseUrl}api/apartments`).then((response) => {
 			if (response.data.success) {
 				this.apartments = response.data.apartments.data;
-				this.apartments = this.apartmentsToShow = this.apartments.filter((apartment) => {
-					if(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers){
-						return apartment;
-					}
-				});
+				this.filteredApartmentsByPosition();
+				this.applyFilters();
 				this.loading = false;
 			}
 		});
@@ -47,18 +44,12 @@ export default {
 	},
 	methods: {
 		filteredApartmentsByPosition() {
-			axios.get(`${this.store.baseUrl}api/apartments`).then((response) => {
-				if (response.data.success) {
-					this.apartments = response.data.apartments.data;
-					this.apartments = this.apartmentsToShow = this.apartments.filter((apartment) => {
-						if(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers){
-							return apartment;
-						}
-					});
-					this.loading = false;
+			this.apartmentsToShow = this.apartments.filter((apartment) => {
+				console.log(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine))
+				if(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers){
+					return apartment;
 				}
 			});
-			this.applyFilters();
 		},
 		distance(lat1, lon1, lat2, lon2){
       var R = 6371; // km
@@ -81,6 +72,14 @@ export default {
 
 		applyFilters() {
 			this.apartmentsToShow = this.apartments;
+
+			//position 
+			this.apartmentsToShow = this.apartments.filter((apartment) => {
+						console.log(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine))
+						if(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers){
+							return apartment;
+						}
+			});
 
 			//Services filter
 			if(this.serviceFilters){
