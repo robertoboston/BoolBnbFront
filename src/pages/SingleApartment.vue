@@ -62,6 +62,9 @@ export default {
 				}
 				this.message = response.data.message;
 			});
+		},
+		deleteResponseMessage() {
+			this.message = null;
 		}
 	}
 
@@ -75,7 +78,8 @@ export default {
 				<div class="col-12 col-md-9" v-if="(this.message != null)">
 					<div class="alert alert-success alert-dismissible fade show" role="alert">
 						<strong>{{ this.message }}</strong>
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+							@click="deleteResponseMessage"></button>
 					</div>
 				</div>
 				<!-- Offcanvas messaggio-->
