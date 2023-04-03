@@ -46,48 +46,48 @@ export default {
 		filteredApartmentsByPosition() {
 			this.apartmentsToShow = this.apartments.filter((apartment) => {
 				console.log(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine))
-				if(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers){
+				if (this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers) {
 					return apartment;
 				}
 			});
 		},
-		distance(lat1, lon1, lat2, lon2){
-      var R = 6371; // km
-      var dLat = this.toRad(lat2-lat1);
-      var dLon = this.toRad(lon2-lon1);
-      var lat1 = this.toRad(lat1);
-      var lat2 = this.toRad(lat2);
+		distance(lat1, lon1, lat2, lon2) {
+			var R = 6371; // km
+			var dLat = this.toRad(lat2 - lat1);
+			var dLon = this.toRad(lon2 - lon1);
+			var lat1 = this.toRad(lat1);
+			var lat2 = this.toRad(lat2);
 
-      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-      var d = R * c;
-      return d;
-    },
+			var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+				Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+			var d = R * c;
+			return d;
+		},
 
-    // Converts numeric degrees to radians
-    toRad(Value){
-        return Value * Math.PI / 180;
-    },
+		// Converts numeric degrees to radians
+		toRad(Value) {
+			return Value * Math.PI / 180;
+		},
 
 		applyFilters() {
 			this.apartmentsToShow = this.apartments;
 
 			//position 
 			this.apartmentsToShow = this.apartments.filter((apartment) => {
-						console.log(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine))
-						if(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers){
-							return apartment;
-						}
+				console.log(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine))
+				if (this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers) {
+					return apartment;
+				}
 			});
 
 			//Services filter
-			if(this.serviceFilters){
-				for(let i in this.serviceFilters) {
+			if (this.serviceFilters) {
+				for (let i in this.serviceFilters) {
 					this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
-						for(let k in apartment.services){
+						for (let k in apartment.services) {
 							console.log(apartment.services[k].id)
-							if(apartment.services[k].id === this.serviceFilters[i])
+							if (apartment.services[k].id === this.serviceFilters[i])
 								return apartment;
 						}
 					})
@@ -95,9 +95,9 @@ export default {
 			}
 
 			//Minimum baths filter
-			if(this.minBaths > 0 && this.minBaths < 255){
+			if (this.minBaths > 0 && this.minBaths < 255) {
 				this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
-					if(apartment.numero_di_bagni >= this.minBaths)
+					if (apartment.numero_di_bagni >= this.minBaths)
 						return apartment;
 				});
 			}
@@ -112,7 +112,7 @@ export default {
 			console.log(this.apartmentsToShow)
 		},
 		syncServiceFilter(service) {
-			(!this.serviceFilters.includes(service.id)) ? 
+			(!this.serviceFilters.includes(service.id)) ?
 				this.serviceFilters.push(service.id) :
 				this.serviceFilters.pop(service.id);
 		}
@@ -137,7 +137,8 @@ export default {
 					</div>
 					<div class="d-flex flex-column">
 						<label for="customRange1" class="form-label">Raggio: {{ kilometers }}</label>
-						<input type="range" id="customRange1" v-model="kilometers" @change="filteredApartmentsByPosition()">
+						<input type="range" id="customRange1" v-model="kilometers" @change="filteredApartmentsByPosition()"
+							min="1">
 					</div>
 					<div class="d-flex flex-column">
 						<label for="customInput1" class="form-label">Numero di bagni</label>
@@ -164,7 +165,8 @@ export default {
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-								<button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="applyFilters">Applica
+								<button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+									@click="applyFilters">Applica
 									filtri</button>
 							</div>
 						</div>
@@ -172,28 +174,29 @@ export default {
 				</div>
 				<div class="col-12 mt-4 d-flex flex-wrap gap-5">
 
-					<ApartmentCard v-for="(item, index) in this.apartmentsToShow" :key="index" :apartment="item"> </ApartmentCard>
+					<ApartmentCard v-for="(item, index) in this.apartmentsToShow" :key="index" :apartment="item">
+					</ApartmentCard>
 					<!-- <div class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index"
 
-					<div v-if="apartmentsToShow.length == 0">
+						<div v-if="apartmentsToShow.length == 0">
 
-					</div>
-					<div v-else class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index"
-
-						style="width: 18rem;">
-						<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
-							class="card-img-top" alt="...">
-						<div class="card-body">
-							<h4 class="card-title">{{ apartment.descrizione }}</h4>
-							<p class="card-text">{{ apartment.position.indirizzo }}, {{ apartment.position.città }},
-								{{ apartment.position.N_civico }}, {{ apartment.position.Nazione }}</p>
-							<h5 class="text-end fw-bolder">&euro; {{ apartment.prezzo }} notte</h5>
-							<router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }"
-								class="btn btn-sm btn-success">
-								Vai all'appartamento
-							</router-link>
 						</div>
-					</div> -->
+						<div v-else class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index"
+
+							style="width: 18rem;">
+							<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
+								class="card-img-top" alt="...">
+							<div class="card-body">
+								<h4 class="card-title">{{ apartment.descrizione }}</h4>
+								<p class="card-text">{{ apartment.position.indirizzo }}, {{ apartment.position.città }},
+									{{ apartment.position.N_civico }}, {{ apartment.position.Nazione }}</p>
+								<h5 class="text-end fw-bolder">&euro; {{ apartment.prezzo }} notte</h5>
+								<router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }"
+									class="btn btn-sm btn-success">
+									Vai all'appartamento
+								</router-link>
+							</div>
+						</div> -->
 				</div>
 			</div>
 		</div>
