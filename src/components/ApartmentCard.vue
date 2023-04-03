@@ -26,8 +26,9 @@ export default {
 	</div> -->
 	<div class="col-12 col-md-3 mb-2">
 		<div class="apartment_card rounded p-2" title="Visualizza i dettagli dell'appartamento">
-			<div class="text-black">
-				<div class="card_img_container">
+			<div>
+				<router-link :to="{name: 'single-apartment', params: {slug: apartment.slug} }" class="text-decoration-none text-black">
+					<div class="card_img_container">
 					<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'" class="card-img-top" alt="...">
 				</div>
 				<div class="pt-3 d-flex">
@@ -39,8 +40,6 @@ export default {
 						<h5 class="text-end fw-bolder">&euro; {{apartment.prezzo}} notte</h5>
 					</div>
 				</div>
-				<router-link :to="{name: 'single-apartment', params: {slug: apartment.slug} }" class="btn btn-sm btn-success">
-				Vai all'appartamento
 				</router-link>
 			</div>
 		</div>				
@@ -66,5 +65,6 @@ export default {
 	box-shadow: 0px 0px 19px -3px rgba(0, 0, 0, 0.58);
 }
 }
+
 	
 </style>
