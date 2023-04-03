@@ -16,7 +16,11 @@ export default {
 			apartmentsToShow: [],
 			services: [],
 			serviceFilters: [],
-			kilometers: 20
+			kilometers: 20,
+			searchLon: null,
+			searchLon: null,
+			minBaths: 1,
+			minBeds: 1
 		}
 	},
 	mounted() {
@@ -28,47 +32,84 @@ export default {
 		})
 	},
 	methods: {
-		filteredApartmentsByPosition(searchLat, searchLon) {
+		filteredApartmentsByPosition(searchLatitude, searchLongitude) {
+			this.searchLon = searchLongitude;
+			this.searchLat = searchLatitude;
 			axios.get(`${this.store.baseUrl}api/apartments`).then((response) => {
 				if (response.data.success) {
 					this.apartments = response.data.apartments.data;
-					this.apartments = this.apartmentsToShow = this.apartments.filter((apartment) => this.distance(searchLat, searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers);
+					this.apartments = this.apartmentsToShow = this.apartments.filter((apartment) => {
+						if(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers){
+							return apartment;
+						}
+					});
 					this.loading = false;
 				}
 			});
 		},
-		distance(lat1, lon1, lat2, lon2) {
-			let p = 0.017453292519943295;    // Math.PI / 180
-			let c = Math.cos;
-			let a = 0.5 - c((lat2 - lat1) * p) / 2 +
-				c(lat1 * p) * c(lat2 * p) *
-				(1 - c((lon2 - lon1) * p)) / 2;
+		distance(lat1, lon1, lat2, lon2){
+      var R = 6371; // km
+      var dLat = this.toRad(lat2-lat1);
+      var dLon = this.toRad(lon2-lon1);
+      var lat1 = this.toRad(lat1);
+      var lat2 = this.toRad(lat2);
 
-			return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
-		},
-		filteredByService() {
-			this.apartmentsToShow = this.apartments
-			for(let i in this.serviceFilters) {
-				console.log(this.serviceFilters[i])
-				this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
-					for(let k in apartment.services){
-						console.log(apartment.services[k].id)
-						if(apartment.services[k].id === this.serviceFilters[i])
-							return apartment;
-					}
-				})
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c;
+      return d;
+    },
+
+    // Converts numeric degrees to radians
+    toRad(Value){
+        return Value * Math.PI / 180;
+    },
+
+		applyFilters() {
+			this.apartmentsToShow = this.apartments;
+
+			//Range Filter
+			this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
+				if(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine)  <= this.kilometers)
+						return apartment;
+			});
+
+			//Services filter
+			if(this.serviceFilters){
+				for(let i in this.serviceFilters) {
+					this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
+						for(let k in apartment.services){
+							console.log(apartment.services[k].id)
+							if(apartment.services[k].id === this.serviceFilters[i])
+								return apartment;
+						}
+					})
+				}
 			}
+			console.log('ok')
+			//Minimum baths filter
+			if(this.minBaths > 0 && this.minBaths < 255){
+				this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
+					console.log(apartment)
+					if(apartment.numero_di_bagni >= this.minBaths)
+						return apartment;
+				});
+			}
+
+			// if(this.minBeds > 0 && this.minBeds < 32555){
+			// 	this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
+			// 		console.log(apartment)
+			// 		if(apartment.numero_di_letti >= this.minBeds)
+			// 			return apartment;
+			// 	});
+			// }
 			console.log(this.apartmentsToShow)
 		},
 		syncServiceFilter(service) {
-			if(!this.serviceFilters.includes(service.id)){
-				this.serviceFilters.push(service.id);
-			}
-			else {
-				console.log('elimino')
+			(!this.serviceFilters.includes(service.id)) ? 
+				this.serviceFilters.push(service.id) :
 				this.serviceFilters.pop(service.id);
-			}
-			console.log(this.serviceFilters)
 		}
 	}
 
@@ -83,10 +124,24 @@ export default {
 			<div class="row">
 
 				<!-- Button trigger modal -->
-				<div class="text-center">
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-						Servizi
-					</button>
+				<div class="d-flex justify-content-center align-items- my-4 gap-4">
+					<div class="d-flex align-items-center">
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							Servizi
+						</button>
+					</div>
+					<div class="d-flex flex-column">
+						<label for="customRange1" class="form-label">Raggio: {{ kilometers }}</label>
+						<input type="range" id="customRange1" v-model="kilometers" @change="applyFilters">
+					</div>
+					<div class="d-flex flex-column">
+						<label for="customInput1" class="form-label">Numero di bagni</label>
+						<input type="text" id="customInput1" v-model="minBaths" @keyup="applyFilters">
+					</div>
+					<div class="d-flex flex-column">
+						<label for="customRange1" class="form-label">Numero di letti</label>
+						<input type="text" id="customRange1" v-model="minBeds" @keyup="applyFilters">
+					</div>
 				</div>
 
 				<!-- Modal -->
@@ -104,7 +159,7 @@ export default {
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-								<button type="button" class="btn btn-primary" @click="filteredByService">Applica
+								<button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="applyFilters">Applica
 									filtri</button>
 							</div>
 						</div>
