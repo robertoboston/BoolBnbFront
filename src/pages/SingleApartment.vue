@@ -13,6 +13,7 @@ export default {
 			cognome: null,
 			email: null,
 			messaggio: null,
+			message: null,
 		}
 
 	},
@@ -59,6 +60,7 @@ export default {
 					this.email = '';
 					this.messaggio = '';
 				}
+				this.message = response.data.message;
 			});
 		}
 	}
@@ -70,6 +72,12 @@ export default {
 	<main class="mt-5">
 		<div class="container my-2 ">
 			<div class="row justify-content-center">
+				<div class="col-12 col-md-9" v-if="(this.message != null)">
+					<div class="alert alert-success alert-dismissible fade show" role="alert">
+						<strong>{{ this.message }}</strong>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				</div>
 				<!-- Offcanvas messaggio-->
 				<div class="col-12">
 					<button class="btn message_button_position message_button_style" type="button"
