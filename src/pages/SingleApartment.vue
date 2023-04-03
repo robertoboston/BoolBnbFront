@@ -19,14 +19,12 @@ export default {
 	created() {
 		axios.get(`${this.store.baseUrl}api/apartments/${this.$route.params.slug}`).then((response) => {
 			this.apartment = response.data.apartment;
-			console.log(this.apartment.cover);
 		})
 	},
 	mounted() {
 
 		this.lon = parseFloat(this.apartment.position.Longitudine);
 		this.lat = parseFloat(this.apartment.position.Latitudine);
-		console.log(this.lat, this.lon);
 		//creazione mappa
 		let center = [this.lon, this.lat]
 		const map = tt.map({
