@@ -8,7 +8,11 @@ export default {
 			store,
 			apartment: null,
 			lon: '',
-			lat: ''
+			lat: '',
+			nome: null,
+			cognome: null,
+			email: null,
+			messaggio: null,
 		}
 
 	},
@@ -19,6 +23,7 @@ export default {
 		})
 	},
 	mounted() {
+
 		this.lon = parseFloat(this.apartment.position.Longitudine);
 		this.lat = parseFloat(this.apartment.position.Latitudine);
 		console.log(this.lat, this.lon);
@@ -34,6 +39,30 @@ export default {
 			new tt.Marker().setLngLat(center).addTo(map)
 		})
 		//
+	},
+	methods: {
+		sendMessage() {
+			const data = {
+				apartment_id: this.apartment.id,
+				contenuto: this.messaggio,
+				nome: this.nome,
+				cognome: this.cognome,
+				email: this.email,
+			}
+
+			axios.put(`${this.store.baseUrl}api/messages`, data).then((response) => {
+				if (!response.data.success) {
+					this.errors = response.data.errors;
+					console.log(this.errors);
+				}
+				else {
+					this.nome = '';
+					this.cognome = '';
+					this.email = '';
+					this.messaggio = '';
+				}
+			});
+		}
 	}
 
 }
@@ -70,15 +99,16 @@ export default {
 								<div class="row">
 									<div class="col">
 										<div class="form-floating mb-3">
-											<input type="text" class="form-control" id="floatingInput" placeholder="Nome">
+											<input type="text" class="form-control" id="floatingInput" placeholder="Nome"
+												v-model="nome">
 											<label for="floatingInput">Nome</label>
 										</div>
 									</div>
 
 									<div class="col">
 										<div class="form-floating mb-3">
-											<input type="text" class="form-control" id="floatingInput"
-												placeholder="Cognome">
+											<input type="text" class="form-control" id="floatingInput" placeholder="Cognome"
+												v-model="cognome">
 											<label for="floatingInput">Cognome</label>
 										</div>
 									</div>
@@ -88,7 +118,7 @@ export default {
 									<div class="col">
 										<div class="form-floating mb-3">
 											<input type="email" class="form-control" id="floatingInput"
-												placeholder="name@gmail.com">
+												placeholder="name@gmail.com" v-model="email">
 											<label for="floatingInput">Indirizzo Email</label>
 										</div>
 									</div>
@@ -98,7 +128,8 @@ export default {
 									<div class="col">
 										<div class="form-floating">
 											<textarea class="form-control message_container"
-												placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
+												placeholder="Leave a comment here" id="floatingTextarea2"
+												v-model="messaggio"></textarea>
 											<label for="floatingTextarea2">Messaggio</label>
 										</div>
 									</div>
@@ -110,8 +141,8 @@ export default {
 											data-bs-dismiss="offcanvas">Annulla</button>
 									</div>
 									<div class="col">
-										<button class="btn message_form_submit_button text-white w-100"
-											type="submit">Invia</button>
+										<button class="btn message_form_submit_button text-white w-100" type="button"
+											@click="sendMessage" data-bs-dismiss="offcanvas">Invia</button>
 									</div>
 								</div>
 							</form>
