@@ -1,6 +1,12 @@
 <script>
+import { store } from '../store';
 export default {
 	name: 'ApartmentCard',
+	data(){
+		return{
+			store
+		}
+	},
 	props:{
       apartment: Object
     },
