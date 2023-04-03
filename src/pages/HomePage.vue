@@ -48,7 +48,6 @@ export default {
                     <div class="spinner-border"></div>
                 </div>
             </div>
-
             <div class="row gap-5 my-5">
                 <ApartmentCard v-for="(item, index) in this.apartmentsToShow" :key="index" :apartment="item">
                 </ApartmentCard>
