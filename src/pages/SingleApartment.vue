@@ -166,8 +166,8 @@ export default {
 					<div class="row">
 						<div class="col-12 col-md-7">
 							<h4>{{ apartment.prezzo }}&euro;/Notte</h4>
-							<h5>Stanze: {{ apartment.numero_di_stanze }}</h5>
 							<h5>Bagni: {{ apartment.numero_di_bagni }}</h5>
+							<h5>letti: {{ apartment.numero_di_stanze }}</h5>
 							<h5>Metri Quadri: {{ apartment.metri_quadri }}mq</h5>
 							<h5>Servizi:</h5>
 							<ul v-for="(service, index) in apartment.services" :key="index">
