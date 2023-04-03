@@ -24,7 +24,21 @@ export default {
 		}
 	},
 	mounted() {
-		this.filteredApartmentsByPosition(this.$route.params.lat, this.$route.params.lon);
+		this.searchLon = this.$route.params.lon
+		this.searchLat = this.$route.params.lat
+
+		axios.get(`${this.store.baseUrl}api/apartments`).then((response) => {
+			if (response.data.success) {
+				this.apartments = response.data.apartments.data;
+				this.apartments = this.apartmentsToShow = this.apartments.filter((apartment) => {
+					if(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers){
+						return apartment;
+					}
+				});
+				this.loading = false;
+			}
+		});
+
 		axios.get(`${this.store.baseUrl}api/services`).then((response) => {
 			if (response.data.success) {
 				this.services = response.data.services;
@@ -32,9 +46,7 @@ export default {
 		})
 	},
 	methods: {
-		filteredApartmentsByPosition(searchLatitude, searchLongitude) {
-			this.searchLon = searchLongitude;
-			this.searchLat = searchLatitude;
+		filteredApartmentsByPosition() {
 			axios.get(`${this.store.baseUrl}api/apartments`).then((response) => {
 				if (response.data.success) {
 					this.apartments = response.data.apartments.data;
@@ -46,6 +58,7 @@ export default {
 					this.loading = false;
 				}
 			});
+			this.applyFilters();
 		},
 		distance(lat1, lon1, lat2, lon2){
       var R = 6371; // km
@@ -69,12 +82,6 @@ export default {
 		applyFilters() {
 			this.apartmentsToShow = this.apartments;
 
-			//Range Filter
-			this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
-				if(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine)  <= this.kilometers)
-						return apartment;
-			});
-
 			//Services filter
 			if(this.serviceFilters){
 				for(let i in this.serviceFilters) {
@@ -87,11 +94,10 @@ export default {
 					})
 				}
 			}
-			console.log('ok')
+
 			//Minimum baths filter
 			if(this.minBaths > 0 && this.minBaths < 255){
 				this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
-					console.log(apartment)
 					if(apartment.numero_di_bagni >= this.minBaths)
 						return apartment;
 				});
@@ -132,7 +138,7 @@ export default {
 					</div>
 					<div class="d-flex flex-column">
 						<label for="customRange1" class="form-label">Raggio: {{ kilometers }}</label>
-						<input type="range" id="customRange1" v-model="kilometers" @change="applyFilters">
+						<input type="range" id="customRange1" v-model="kilometers" @change="filteredApartmentsByPosition()">
 					</div>
 					<div class="d-flex flex-column">
 						<label for="customInput1" class="form-label">Numero di bagni</label>
