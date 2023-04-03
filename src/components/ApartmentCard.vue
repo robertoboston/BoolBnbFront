@@ -34,10 +34,6 @@ export default {
 }
 </script>
 <template>
-	<div class="card px-0" style="width: 18rem;">
-		<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
-			class="card-img-top" alt="...">
-	</div>
 	<div class="col-12 col-md-3 mb-2">
 		<div class="apartment_card rounded p-2" title="Visualizza i dettagli dell'appartamento">
 			<div>
