@@ -79,7 +79,6 @@ export default {
 				for(let i in this.serviceFilters) {
 					this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
 						for(let k in apartment.services){
-							console.log(apartment.services[k].id)
 							if(apartment.services[k].id === this.serviceFilters[i])
 								return apartment;
 						}
@@ -98,7 +97,7 @@ export default {
 			//Minimum number of beds filter
 			if(this.minBeds > 0 && this.minBeds < 32555){
 				this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
-					console.log(apartment)
+				console.log(apartment)
 					if(apartment.numero_di_letti >= this.minBeds)
 						return apartment;
 				});
