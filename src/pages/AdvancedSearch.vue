@@ -122,56 +122,61 @@ export default {
 			<div class="row">
 
 				<!-- Button trigger modal -->
-				
-					<div class="container-filter">
-						<div class="box d-flex">
-							<div class="service">
-								<button class="service-button d-flex justify-content-around align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
-									<i class="fa-solid fa-list-check fa-2x"></i>
-								</button>
-								<div class="text-center">
-									Servizi
-								</div>
-					        </div>
-							<div class="baths">
-						        <input type="text" id="customInput1" v-model="minBaths" @keyup="applyFilters">
-								<div class="text-center">
-									<label for="customInput1" class="form-label">Bagni</label>
-								</div>
-					        </div>
-							<div class="beds">
-						        <input type="text" id="customRange1" v-model="minBeds" @keyup="applyFilters">	
-								<div class="text-center">
-									<label for="customRange1" class="form-label">Letti</label>
-								</div>
-					        </div>
-						</div>
-					</div>
 
-					<div class="range-km-container">
-						<div class="type-range">
+				<div class="container-filter">
+					<div class="box d-flex">
+						<div class="service">
+							<button class="service-button d-flex justify-content-around align-items-center"
+								data-bs-toggle="modal" data-bs-target="#exampleModal">
+								<i class="fa-solid fa-list-check fa-2x"></i>
+							</button>
 							<div class="text-center">
-								<div>
-									<i class="fa-solid fa-route fa-2x"></i>
-								</div>
-								<label for="customRange1" class="form-label"><strong>Km:</strong> {{ kilometers }}</label>
+								Servizi
 							</div>
-						    <input class="km-range" type="range" id="customRange1" v-model="kilometers" @change="applyFilters" min="5">
+						</div>
+						<div class="baths">
+							<input type="text" id="customInput1" v-model="minBaths" @keyup="applyFilters">
+							<div class="text-center">
+								<label for="customInput1" class="form-label">Bagni</label>
+							</div>
+						</div>
+						<div class="beds">
+							<input type="text" id="customRange1" v-model="minBeds" @keyup="applyFilters">
+							<div class="text-center">
+								<label for="customRange1" class="form-label">Letti</label>
+							</div>
 						</div>
 					</div>
+				</div>
+
+				<div class="range-km-container">
+					<div class="type-range">
+						<div class="text-center">
+							<div>
+								<i class="fa-solid fa-route fa-2x"></i>
+							</div>
+							<label for="customRange1" class="form-label"><strong>Km:</strong> {{ kilometers }}</label>
+						</div>
+						<input class="km-range" type="range" id="customRange1" v-model="kilometers" @change="applyFilters"
+							min="5">
+					</div>
+				</div>
 
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
 					aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-dialog modal-dialog-scrollable">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+								<h1 class="modal-title fs-5" id="exampleModalLabel">Servizi</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body" v-for="(service, index) in services" :key="index">
-								<input type="checkbox" value="{{ service.id }}" @change="syncServiceFilter(service)">
-								<label for="">{{ service.nome }}</label>
+							<div class="modal-body">
+								<div v-for="(service, index) in services" :key="index" class="my-2">
+									<input type="checkbox" value="{{ service.id }}" @change="syncServiceFilter(service)"
+										class="me-1">
+									<label for="">{{ service.nome }}</label>
+								</div>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
@@ -188,25 +193,25 @@ export default {
 					</ApartmentCard>
 					<!-- <div class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index"
 
-						<div v-if="apartmentsToShow.length == 0">
+															<div v-if="apartmentsToShow.length == 0">
 
-						</div>
-						<div v-else class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index"
+															</div>
+															<div v-else class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index"
 
-							style="width: 18rem;">
-							<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
-								class="card-img-top" alt="...">
-							<div class="card-body">
-								<h4 class="card-title">{{ apartment.descrizione }}</h4>
-								<p class="card-text">{{ apartment.position.indirizzo }}, {{ apartment.position.città }},
-									{{ apartment.position.N_civico }}, {{ apartment.position.Nazione }}</p>
-								<h5 class="text-end fw-bolder">&euro; {{ apartment.prezzo }} notte</h5>
-								<router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }"
-									class="btn btn-sm btn-success">
-									Vai all'appartamento
-								</router-link>
-							</div>
-						</div> -->
+																style="width: 18rem;">
+																<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
+																	class="card-img-top" alt="...">
+																<div class="card-body">
+																	<h4 class="card-title">{{ apartment.descrizione }}</h4>
+																	<p class="card-text">{{ apartment.position.indirizzo }}, {{ apartment.position.città }},
+																		{{ apartment.position.N_civico }}, {{ apartment.position.Nazione }}</p>
+																	<h5 class="text-end fw-bolder">&euro; {{ apartment.prezzo }} notte</h5>
+																	<router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }"
+																		class="btn btn-sm btn-success">
+																		Vai all'appartamento
+																	</router-link>
+																</div>
+															</div> -->
 				</div>
 			</div>
 		</div>
@@ -214,41 +219,44 @@ export default {
 </template>
 
 <style lang="scss">
-
-#advancedContainer{
+#advancedContainer {
 	background-color: #f3f3f3;
-	.container-filter{
+
+	.container-filter {
 		margin: 0 auto;
 		display: flex;
 		justify-content: center;
-	
+
 	}
-	
-	.box{
+
+	.box {
 		height: 40px;
 		width: 600px;
-		
+
 	}
-	
-	.service,.baths,.beds,.range{
+
+	.service,
+	.baths,
+	.beds,
+	.range {
 		width: calc(100% / 3 - 20px);
 		height: 100%;
 		margin: 10px;
 	}
-	
-	.service-button{
+
+	.service-button {
 		height: 100%;
 		width: 100%;
 		background-color: #fc9d15;
 		border: none;
 		border-radius: 5px;
 	}
-	
-	.service-button:hover{
+
+	.service-button:hover {
 		background-color: #dd8913;
 	}
-	
-	.baths input{
+
+	.baths input {
 		width: 100%;
 		height: 100%;
 		text-align: center;
@@ -257,13 +265,13 @@ export default {
 		border: none;
 		border-radius: 5px;
 	}
-	
-	.baths input:hover{
+
+	.baths input:hover {
 		background-color: #c43431;
-	
+
 	}
-	
-	.beds input{
+
+	.beds input {
 		width: 100%;
 		height: 100%;
 		text-align: center;
@@ -272,97 +280,97 @@ export default {
 		border: none;
 		border-radius: 5px;
 	}
-	
-	.beds input:hover{
+
+	.beds input:hover {
 		background-color: #348fd0;
-	
+
 	}
-	
-	.range-km-container{
+
+	.range-km-container {
 		display: flex;
 		justify-content: center;
 		padding: 70px
 	}
-	
-	.km-range{
+
+	.km-range {
 		cursor: pointer;
 		margin: auto;
-		 -webkit-appearance: none;
-		 position: relative;
-		 overflow: hidden;
-		 height: 30px;
-		 width: 300px;
-		 cursor: pointer;
-		 border-radius: 0; /* iOS */
+		-webkit-appearance: none;
+		position: relative;
+		overflow: hidden;
+		height: 30px;
+		width: 300px;
+		cursor: pointer;
+		border-radius: 0;
+		/* iOS */
 	}
-	
+
 	::-webkit-slider-runnable-track {
-		 background: #ddd;
+		background: #ddd;
 	}
-	
+
 	/*
 	 * 1. Set to 0 width and remove border for a slider without a thumb
 	 * 2. Shadow is negative the full width of the input and has a spread 
 	 *    of the width of the input.
 	 */
 	::-webkit-slider-thumb {
-		 -webkit-appearance: none;
-		 width: 20px; /* 1 */
-		 height: 30px;
-		 background: #fff;
-		 box-shadow: -200px 0 0 200px dodgerblue; /* 2 */
-		 border: 2px solid #999; /* 1 */
+		-webkit-appearance: none;
+		width: 20px;
+		/* 1 */
+		height: 30px;
+		background: #fff;
+		box-shadow: -200px 0 0 200px dodgerblue;
+		/* 2 */
+		border: 2px solid #999;
+		/* 1 */
 	}
-	
+
 	::-moz-range-track {
-		 height: 30px;
-		 background: #ddd;
+		height: 30px;
+		background: #ddd;
 	}
-	
+
 	::-moz-range-thumb {
-		 background: #fff;
-		 height:300px;
-		 width: 20px;
-		 border: 3px solid #999;
-		 border-radius: 0 !important;
-		 box-shadow: -200px 0 0 200px dodgerblue;
-		 box-sizing: border-box;
+		background: #fff;
+		height: 300px;
+		width: 20px;
+		border: 3px solid #999;
+		border-radius: 0 !important;
+		box-shadow: -200px 0 0 200px dodgerblue;
+		box-sizing: border-box;
 	}
-	
-	::-ms-fill-lower { 
-		 background: dodgerblue;
+
+	::-ms-fill-lower {
+		background: dodgerblue;
 	}
-	
-	::-ms-thumb { 
-		 background: #fff;
-		 border: 2px solid #999;
-		 height: 30px;
-		 width: 20px;
-		 box-sizing: border-box;
+
+	::-ms-thumb {
+		background: #fff;
+		border: 2px solid #999;
+		height: 30px;
+		width: 20px;
+		box-sizing: border-box;
 	}
-	
-	::-ms-ticks-after { 
-		 display: none; 
+
+	::-ms-ticks-after {
+		display: none;
 	}
-	
-	::-ms-ticks-before { 
-		 display: none; 
+
+	::-ms-ticks-before {
+		display: none;
 	}
-	
-	::-ms-track { 
-		 background: #ddd;
-		 color: transparent;
-		 height: 40px;
-		 border: none;
+
+	::-ms-track {
+		background: #ddd;
+		color: transparent;
+		height: 40px;
+		border: none;
 	}
-	
-	::-ms-tooltip { 
-		 display: none;
+
+	::-ms-tooltip {
+		display: none;
 	}
 
 }
-
-
-
-
 </style>
