@@ -36,15 +36,16 @@ export default {
 				<router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }"
 					class="text-decoration-none text-black">
 					<div class="card_img_container">
-						<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
-							class="card-img-top rounded-4" alt="...">
 						<div class="price rounded-pill py-1 px-2 text-white">
 							{{ apartment.prezzo }} &euro;
 						</div>
+						<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://media.istockphoto.com/id/1147544807/it/vettoriale/la-commissione-per-la-immagine-di-anteprima-grafica-vettoriale.jpg?s=612x612&w=0&k=20&c=gsxHNYV71DzPuhyg-btvo-QhhTwWY0z4SGCSe44rvg4='"
+							class="card-img-top" alt="...">
 					</div>
 					<div class="pt-3 d-flex">
 						<div class="w-75">
-							<h4 class="card-title">{{ apartment.descrizione }}</h4>
+							<h4 class="card-title fs-6">{{ apartment.descrizione }}</h4>
+							<hr class="mt-1 mb-1">
 							<p class="card-text">{{ apartment.position.indirizzo }} {{ apartment.position.N_civico }}, 
 								{{ apartment.position.città }},  {{ apartment.position.Nazione }}</p>
 						</div>
