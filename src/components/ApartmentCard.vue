@@ -42,8 +42,8 @@ export default {
 					<div class="pt-3 d-flex">
 						<div class="w-75">
 							<h4 class="card-title">{{ apartment.descrizione }}</h4>
-							<p class="card-text">{{ apartment.position.indirizzo }}, {{ apartment.position.città }},
-								{{ apartment.position.N_civico }}, {{ apartment.position.Nazione }}</p>
+							<p class="card-text">{{ apartment.position.indirizzo }}, {{ apartment.position.N_civico }}, 
+								{{ apartment.position.città }},  {{ apartment.position.Nazione }}</p>
 						</div>
 						<div class="w-25">
 							<h5 class="text-end fw-bolder">&euro; {{ apartment.prezzo }} notte</h5>
