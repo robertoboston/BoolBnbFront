@@ -78,7 +78,7 @@ header {
     nav {
         #logo-container {
             h2 {
-                font-weight: 700;
+                font-weight: 600;
                 margin-bottom: 0;
             }
         }
