@@ -41,12 +41,13 @@ export default {
 					</div>
 					<div class="pt-3 d-flex">
 						<div class="w-75">
-							<h4 class="card-title">{{ apartment.descrizione }}</h4>
+							<h4 class="card-title fs-6">{{ apartment.descrizione }}</h4>
+							<hr class="mt-1 mb-1">
 							<p class="card-text">{{ apartment.position.indirizzo }} {{ apartment.position.N_civico }}, 
 								{{ apartment.position.città }},  {{ apartment.position.Nazione }}</p>
 						</div>
-						<div class="w-25">
-							<h5 class="text-end fw-bolder">&euro; {{ apartment.prezzo }} notte</h5>
+						<div class="w-25 ms-2">
+							<h5 class="text-end fs-6 fw-bolder">&euro; {{ apartment.prezzo }} /notte</h5>
 						</div>
 					</div>
 				</router-link>
