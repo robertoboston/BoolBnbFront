@@ -14,13 +14,12 @@
 			<div class="row h-100">
 				<div class="col-12 col-md-7 px-0" id="search-jumbo">
 					<div class="content">
-						<h1 class="text-center mb-4">Scegli la tua prossima destinazione</h1>
+						<h1 class="text-center mb-4 d-none d-sm-block">Scegli la tua prossima destinazione</h1>
 						<Searchbar> </Searchbar>
 					</div>
 				</div>
-				<div class="col-12 col-md-5" id="img-jumbo">
-					<img src="../assets/images/bnb.png" alt="">
-		
+				<div class="col-5 d-none d-md-block" id="img-jumbo">
+					<img src="../assets/images/bnb.png" alt="">		
 				</div>
 			</div>
 		</div>
@@ -53,6 +52,51 @@
 					bottom: 2rem;
 					right: 0;
 					width: 90%;
+				}
+			}
+		}
+	}
+	// medium
+	@media screen and (max-width: 767px) {
+		#jumbotron{
+			height: 300px;
+			.row{
+				#search-jumbo{
+					position: relative;
+					.content{
+						position: absolute;
+						bottom: 4rem;
+						left: 50%;
+						transform: translateX( -50%);
+						h1{
+							font-size: 2.75rem;
+						}
+					}
+				}
+			}
+		}
+	}
+	// small
+	@media screen and (max-width: 575px) {
+		#jumbotron{
+			height: 160px;
+			.row{
+				#search-jumbo{
+					position: relative;
+					.content{
+						position: absolute;
+						bottom: 4rem;
+						left: 50%;
+						transform: translateX( -50%);
+						width: 80%;
+						h1{
+							font-size: 2.75rem;
+						}
+						#search-container{
+							width: 100%;
+							margin: 0;
+						}
+					}
 				}
 			}
 		}
