@@ -11,25 +11,21 @@ export default {
 	props: {
 		apartment: Object
 	},
-	methods: {
-		addView() {
-			axios.get('https://api.db-ip.com/v2/free/self').then((response) => {
+	mounted() {
+		axios.get('https://api.db-ip.com/v2/free/self').then((response) => {
 
-				const data = {
-					apartment_id: this.apartment.id,
-					IP: response.data.ipAddress,
+			const data = {
+				apartment_id: this.apartment.id,
+				IP: response.data.ipAddress,
+			}
+
+			axios.put(`${this.store.baseUrl}api/views`, data).then((response) => {
+				if (!response.data.success) {
+					this.errors = response.data.errors;
+					console.log(this.errors);
 				}
-
-				axios.put(`${this.store.baseUrl}api/views`, data).then((response) => {
-					if (!response.data.success) {
-						this.errors = response.data.errors;
-						console.log(this.errors);
-					}
-				});
-			})
-
-
-		}
+			});
+		})
 	}
 }
 </script>
