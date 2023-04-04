@@ -46,7 +46,7 @@ export default {
 							<p class="card-text">{{ apartment.position.indirizzo }} {{ apartment.position.N_civico }}, 
 								{{ apartment.position.città }},  {{ apartment.position.Nazione }}</p>
 						</div>
-						<div class="w-25 ms-2">
+						<div class="w-25 ms-2 d-flex align-items-center">
 							<h5 class="text-end fs-6 fw-bolder">&euro; {{ apartment.prezzo }} /notte</h5>
 						</div>
 					</div>
