@@ -61,9 +61,9 @@ export default {
 
 <template>
 	<div id="search-container" class="p-0">
-		<div id="searchbar" class="d-flex py-1 px-2 align-items-center rounded-5 mb-2 w-100">
+		<div id="searchbar" class="d-flex  align-items-center rounded-5 mb-2 w-100 bg-white">
 			<i class="fa-solid fa-magnifying-glass mx-2"></i>
-			<input type="search" class="w-100" placeholder="inserisci luogo" v-model="search" @keyup="getSugg" id="inputSearch">
+			<input type="search" class="w-100 b-none" placeholder="inserisci luogo" v-model="search" @keyup="getSugg" id="inputSearch">
 		</div>
 		<!-- dropdown -->
 		<ul id="dropdown-sugg" v-if="this.dropdown" class="rounded-3 bg-light list-unstyled w-100">
@@ -82,7 +82,7 @@ export default {
 	width: 500px;
 	position: relative;
 	#searchbar{
-		border: 1px solid rgb(198, 198, 198);
+		padding: .8rem 1.2rem;
 		input{
 			border: none;
 			outline: none;
@@ -107,7 +107,7 @@ export default {
 	#dropdown-sugg{
 		position: absolute;
 		font-size: .8rem;
-		box-shadow: 0px 10px 10px 0px #8d8d8d;
+		box-shadow: 0px 10px 10px 0px #555555;
 		z-index: 2;
 		li{
 			cursor: pointer;
