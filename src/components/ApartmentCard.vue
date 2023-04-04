@@ -37,16 +37,16 @@ export default {
 					class="text-decoration-none text-black">
 					<div class="card_img_container">
 						<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
-							class="card-img-top" alt="...">
+							class="card-img-top rounded-4" alt="...">
+						<div class="price rounded-pill py-1 px-2 text-white">
+							{{ apartment.prezzo }} &euro;
+						</div>
 					</div>
 					<div class="pt-3 d-flex">
 						<div class="w-75">
 							<h4 class="card-title">{{ apartment.descrizione }}</h4>
 							<p class="card-text">{{ apartment.position.indirizzo }} {{ apartment.position.N_civico }}, 
 								{{ apartment.position.città }},  {{ apartment.position.Nazione }}</p>
-						</div>
-						<div class="w-25">
-							<h5 class="text-end fw-bolder">&euro; {{ apartment.prezzo }} notte</h5>
 						</div>
 					</div>
 				</router-link>
@@ -60,12 +60,20 @@ export default {
 	.card_img_container {
 		width: 100%;
 		height: 220px;
+		position: relative;
 
 		img {
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
 			object-position: center;
+		}
+
+		.price{
+			position: absolute;
+			top: .5rem;
+			right: .5rem;
+			background-color: rgba(0,0,0,0.5)
 		}
 	}
 
