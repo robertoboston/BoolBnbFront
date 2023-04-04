@@ -96,7 +96,7 @@ export default {
 						<!-- Form messaggio -->
 						<div class="offcanvas-body">
 							<div class="bg-light p-3 rounded mb-3">
-								<div class="mb-2">
+								<div class="mb-2 message_cover_container">
 									<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
 										class="w-100 rounded" alt="{{apartment.descrizione}}">
 								</div>
@@ -120,8 +120,8 @@ export default {
 											<input type="text" class="form-control" id="floatingInput" placeholder="Cognome"
 												v-model="cognome">
 											<label for="floatingInput">Cognome</label>
-										</div>
 									</div>
+								</div>
 								</div>
 								<!-- Email -->
 								<div class="row">
@@ -162,7 +162,7 @@ export default {
 				<div class="col-12 col-md-9 bg-light p-4 rounded-5" id="apartment-card">
 					<div class="row mb-2">
 						<h1>{{ apartment.descrizione }}</h1>
-						<div class="col-12 col-md-7 px-2 mb-2">
+						<div class="col-12 col-md-7 px-2 mb-2 cover_container">
 							<!-- cover -->
 							<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://media.istockphoto.com/id/1147544807/it/vettoriale/la-commissione-per-la-immagine-di-anteprima-grafica-vettoriale.jpg?s=612x612&w=0&k=20&c=gsxHNYV71DzPuhyg-btvo-QhhTwWY0z4SGCSe44rvg4='"
 								class="w-100 rounded-3" alt="{{apartment.descrizione}}">
@@ -194,7 +194,7 @@ export default {
 						</div>
 						<!-- <div class="col-12 col-md-5">
 
-						</div> -->
+																</div> -->
 					</div>
 				</div>
 			</div>
@@ -252,8 +252,28 @@ export default {
 		}
 	}
 
-	#map{
+	#map {
 		height: 100%;
+	}
+}
+
+.message_cover_container {
+	height: 300px;
+
+	img {
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+}
+
+.cover_container {
+	max-height: 350px;
+
+	img {
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
 	}
 }
 
@@ -267,7 +287,7 @@ export default {
 @media screen and (max-width: 767px) {
 	#apartment-card {
 
-		#map{
+		#map {
 			height: 200px;
 		}
 	}
