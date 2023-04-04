@@ -30,7 +30,7 @@ export default {
 }
 </script>
 <template>
-	<div class="col-12 col-md-3 mb-2">
+	<div class="col-12 col-md-4 col-lg-3 mb-2">
 		<div class="apartment_card rounded p-2" title="Visualizza i dettagli dell'appartamento">
 			<div>
 				<router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }"
