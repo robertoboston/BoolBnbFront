@@ -179,7 +179,7 @@ export default {
 						</div>
 					</div>
 				</div>
-				<div class="col-12 mt-4 d-flex flex-wrap gap-5">
+				<div class="col-12 mt-4 d-flex flex-wrap">
 
 					<ApartmentCard v-for="(item, index) in this.apartmentsToShow" :key="index" :apartment="item">
 					</ApartmentCard>
