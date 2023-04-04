@@ -36,7 +36,7 @@ export default {
 				<router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }"
 					class="text-decoration-none text-black">
 					<div class="card_img_container">
-						<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
+						<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://media.istockphoto.com/id/1147544807/it/vettoriale/la-commissione-per-la-immagine-di-anteprima-grafica-vettoriale.jpg?s=612x612&w=0&k=20&c=gsxHNYV71DzPuhyg-btvo-QhhTwWY0z4SGCSe44rvg4='"
 							class="card-img-top" alt="...">
 					</div>
 					<div class="pt-3 d-flex">

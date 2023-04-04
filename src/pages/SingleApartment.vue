@@ -164,7 +164,7 @@ export default {
 						<h1>{{ apartment.descrizione }}</h1>
 						<div class="col-12 col-md-7 px-2 mb-2">
 							<!-- cover -->
-							<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
+							<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://media.istockphoto.com/id/1147544807/it/vettoriale/la-commissione-per-la-immagine-di-anteprima-grafica-vettoriale.jpg?s=612x612&w=0&k=20&c=gsxHNYV71DzPuhyg-btvo-QhhTwWY0z4SGCSe44rvg4='"
 								class="w-100 rounded-3" alt="{{apartment.descrizione}}">
 						</div>
 						<div class="col-12 col-md-5 px-2 mb-2" id="address">
