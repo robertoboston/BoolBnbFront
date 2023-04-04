@@ -162,14 +162,21 @@ export default {
 				<div class="col-12 col-md-9 bg-light p-4 rounded-5" id="apartment-card">
 					<div class="row mb-2">
 						<h1>{{ apartment.descrizione }}</h1>
-						<div class="col-12 col-md-7 p-0">
+						<div class="col-12 col-md-7 px-2 mb-2">
 							<!-- cover -->
 							<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
-								class="w-100" alt="{{apartment.descrizione}}">
+								class="w-100 rounded-3" alt="{{apartment.descrizione}}">
 						</div>
-						<div class="col-12 col-md-5">
+						<div class="col-12 col-md-5 px-2 mb-2" id="address">
 							<!-- mappa -->
-							<div id="map" class="w-100 h-100"></div>
+							<div id="map" class="w-100 rounded-3 mb-2"></div>
+							<div class="text-end">
+								<img src="../assets/images/home-where.png" alt="">
+								<span id="address">
+									{{ apartment.position.indirizzo }} {{ apartment.position.N_civico }},
+									{{ apartment.position.città }}, {{ apartment.position.Nazione }}
+								</span>
+							</div>
 						</div>
 
 					</div>
@@ -185,16 +192,9 @@ export default {
 							</ul>
 
 						</div>
-						<div class="col-12 col-md-5">
-							<div class="text-end" id="address">
-								<img src="../assets/images/home-where.png" alt="">
-								<span>
-									{{ apartment.position.indirizzo }}, {{ apartment.position.N_civico }},
-									{{ apartment.position.città }}, {{ apartment.position.Nazione }}
-								</span>
-							</div>
+						<!-- <div class="col-12 col-md-5">
 
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -251,12 +251,25 @@ export default {
 			vertical-align: text-bottom;
 		}
 	}
+
+	#map{
+		height: 100%;
+	}
 }
 
 
 @media screen and (min-width: 600px) {
 	.offcanvas_size {
 		width: 500px;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	#apartment-card {
+
+		#map{
+			height: 200px;
+		}
 	}
 }
 </style>
