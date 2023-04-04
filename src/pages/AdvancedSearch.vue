@@ -122,25 +122,40 @@ export default {
 			<div class="row">
 
 				<!-- Button trigger modal -->
-				<div class="d-flex justify-content-center align-items- my-4 gap-4">
-					<div class="d-flex align-items-center">
-						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-							Servizi
-						</button>
+				
+					<div class="container-filter">
+						<div class="box d-flex">
+							<div class="service">
+								<button class="service-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+									servizi
+								</button>
+					        </div>
+							<div class="baths">
+						        <input type="text" id="customInput1" v-model="minBaths" @keyup="applyFilters">
+								<div class="text-center">
+									<label for="customInput1" class="form-label">Bagni</label>
+								</div>
+					        </div>
+							<div class="beds">
+						        <input type="text" id="customRange1" v-model="minBeds" @keyup="applyFilters">	
+								<div class="text-center">
+									<label for="customRange1" class="form-label">Letti</label>
+								</div>
+					        </div>
+						</div>
 					</div>
-					<div class="d-flex flex-column">
-						<label for="customRange1" class="form-label">Raggio: {{ kilometers }}</label>
-						<input type="range" id="customRange1" v-model="kilometers" @change="applyFilters" min="5">
+
+					<div class="range-km-container">
+						<div class="type-range">
+							<div class="text-center">
+								<div>
+									<i class="fa-solid fa-route fa-2x"></i>
+								</div>
+								<label for="customRange1" class="form-label"><strong>Km:</strong> {{ kilometers }}</label>
+							</div>
+						    <input class="km-range" type="range" id="customRange1" v-model="kilometers" @change="applyFilters" min="5">
+						</div>
 					</div>
-					<div class="d-flex flex-column">
-						<label for="customInput1" class="form-label">Numero di bagni</label>
-						<input type="text" id="customInput1" v-model="minBaths" @keyup="applyFilters">
-					</div>
-					<div class="d-flex flex-column">
-						<label for="customRange1" class="form-label">Numero di letti</label>
-						<input type="text" id="customRange1" v-model="minBeds" @keyup="applyFilters">
-					</div>
-				</div>
 
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -194,4 +209,151 @@ export default {
 		</div>
 	</main>
 </template>
-<style lang="scss"></style>
+<style lang="scss">
+.container-filter{
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+
+}
+
+.box{
+	height: 40px;
+	width: 600px;
+	
+}
+
+.service,.baths,.beds,.range{
+	width: calc(100% / 3 - 20px);
+	height: 100%;
+	margin: 10px;
+}
+
+.service-button{
+	height: 100%;
+	width: 100%;
+	background-color: #fc9d15;
+	border: none;
+	border-radius: 5px;
+}
+
+.service-button:hover{
+	background-color: #dd8913;
+}
+
+.baths input{
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	font-size: 25px;
+	background-color: #e33f3d;
+	border: none;
+	border-radius: 5px;
+}
+
+.baths input:hover{
+	background-color: #c43431;
+
+}
+
+.beds input{
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	font-size: 25px;
+	background-color: #3fa9f5;
+	border: none;
+	border-radius: 5px;
+}
+
+.beds input:hover{
+	background-color: #348fd0;
+
+}
+
+.range-km-container{
+	display: flex;
+	justify-content: center;
+	padding: 70px
+}
+
+.km-range{
+	cursor: pointer;
+	margin: auto;
+    -webkit-appearance: none;
+    position: relative;
+    overflow: hidden;
+    height: 30px;
+    width: 300px;
+    cursor: pointer;
+    border-radius: 0; /* iOS */
+}
+
+::-webkit-slider-runnable-track {
+    background: #ddd;
+}
+
+/*
+ * 1. Set to 0 width and remove border for a slider without a thumb
+ * 2. Shadow is negative the full width of the input and has a spread 
+ *    of the width of the input.
+ */
+::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; /* 1 */
+    height: 30px;
+    background: #fff;
+    box-shadow: -200px 0 0 200px dodgerblue; /* 2 */
+    border: 2px solid #999; /* 1 */
+}
+
+::-moz-range-track {
+    height: 30px;
+    background: #ddd;
+}
+
+::-moz-range-thumb {
+    background: #fff;
+    height:300px;
+    width: 20px;
+    border: 3px solid #999;
+    border-radius: 0 !important;
+    box-shadow: -200px 0 0 200px dodgerblue;
+    box-sizing: border-box;
+}
+
+::-ms-fill-lower { 
+    background: dodgerblue;
+}
+
+::-ms-thumb { 
+    background: #fff;
+    border: 2px solid #999;
+    height: 30px;
+    width: 20px;
+    box-sizing: border-box;
+}
+
+::-ms-ticks-after { 
+    display: none; 
+}
+
+::-ms-ticks-before { 
+    display: none; 
+}
+
+::-ms-track { 
+    background: #ddd;
+    color: transparent;
+    height: 40px;
+    border: none;
+}
+
+::-ms-tooltip { 
+    display: none;
+}
+
+
+
+
+</style>
