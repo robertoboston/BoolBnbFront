@@ -42,8 +42,8 @@ export default {
 						<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://media.istockphoto.com/id/1147544807/it/vettoriale/la-commissione-per-la-immagine-di-anteprima-grafica-vettoriale.jpg?s=612x612&w=0&k=20&c=gsxHNYV71DzPuhyg-btvo-QhhTwWY0z4SGCSe44rvg4='"
 							class="card-img-top rounded-4" alt="...">
 					</div>
-					<div class="pt-3 d-flex">
-						<div class="w-75">
+					<div class="mt-3 p-2 d-flex apartment-info rounded-3">
+						<div class="w-75 bg">
 							<h4 class="card-title fs-6">{{ apartment.descrizione }}</h4>
 							<hr class="mt-1 mb-1">
 							<p class="card-text">{{ apartment.position.indirizzo }} {{ apartment.position.N_civico }}, 
@@ -68,6 +68,7 @@ export default {
 			height: 100%;
 			object-fit: cover;
 			object-position: center;
+			transition: box-shadow 0.5s ease;
 		}
 
 		.price{
@@ -78,8 +79,20 @@ export default {
 		}
 	}
 
+	.apartment-info{
+		transition: background-color 0.5s ease;
+	}
+
 	&:hover {
-		box-shadow: 0px 0px 19px -3px rgba(0, 0, 0, 0.58);
+		// box-shadow: 0px 0px 19px -3px rgba(0, 0, 0, 0.58);
+
+		img{
+			box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.7);
+		}
+
+		.apartment-info{
+			background-color: white;
+		}
 	}
 }
 </style>
