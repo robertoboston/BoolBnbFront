@@ -34,7 +34,7 @@ export default {
 <template>
     <main>
 		  <AppJumbotron> </AppJumbotron>
-        <div class="container">
+        <div class="container rounded-4 my-5">
             <!-- <div class="row">
                 <div class="image-fluid">
                     <img src="" alt="">
@@ -49,11 +49,15 @@ export default {
                     <div class="spinner-border"></div>
                 </div>
             </div>
-            <div class="row my-5">
+            <div class="row py-3">
                 <ApartmentCard v-for="(item, index) in this.apartmentsToShow" :key="index" :apartment="item">
                 </ApartmentCard>
             </div>
         </div>
     </main>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+	.container{
+		background-color: #f3f3f3;
+	}
+</style>
