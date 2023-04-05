@@ -72,8 +72,8 @@ export default {
 </script>
 
 <template>
-	<main class="mt-5">
-		<div class="container my-2 ">
+	<main class="mt-5 py-4">
+		<div class="container mt-3">
 			<div class="row justify-content-center">
 				<div class="col-12 col-md-9" v-if="(this.message != null)">
 					<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -159,7 +159,7 @@ export default {
 						</div>
 					</div>
 				</div>
-				<div class="col-12 col-md-9 bg-light p-4 rounded-5" id="apartment-card">
+				<div class="col-12 col-md-9 bg-white p-4 rounded-5" id="apartment-card">
 					<div class="row mb-2">
 						<h1>{{ apartment.descrizione }}</h1>
 						<div class="col-12 col-md-7 px-2 mb-2 cover_container">
@@ -205,8 +205,6 @@ export default {
 
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
-
-
 .offcanvas_size {
 	width: 100%;
 }

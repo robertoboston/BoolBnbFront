@@ -30,8 +30,9 @@
 	#jumbotron{
 		// position: relative;
 		height: 65vh;
-		background-color: rgba($brand-blue, 0.4);
-		// background-color: rgb(232, 232, 232);
+		margin-bottom: 3rem;
+		// background-color: rgba($brand-blue, 0.4);
+		background-color: #B7DDFB;
 		.row{
 			#search-jumbo{
 				position: relative;

@@ -115,7 +115,7 @@ export default {
 </script>
 <template>
 	<main>
-		<div class="container rounded-4 mb-4 py-2" id="advancedContainer">
+		<div class="container rounded-4 py-2 mt-4 bg-white" id="advancedContainer">
 			<div class="row justify-content-center mt-4">
 				<Searchbar @search="filteredApartmentsByPosition"> </Searchbar>
 			</div>
@@ -220,7 +220,6 @@ export default {
 
 <style lang="scss">
 #advancedContainer {
-	background-color: #f3f3f3;
 
 	.container-filter {
 		margin: 0 auto;

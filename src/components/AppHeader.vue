@@ -74,7 +74,6 @@ header {
     right: 0;
     z-index: 3;
     width: 100%;
-
     nav {
         #logo-container {
             h2 {

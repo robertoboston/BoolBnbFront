@@ -34,7 +34,7 @@ export default {
 <template>
     <main>
 		  <AppJumbotron> </AppJumbotron>
-        <div class="container rounded-4 my-5">
+        <div class="container rounded-4 bg-white">
             <!-- <div class="row">
                 <div class="image-fluid">
                     <img src="" alt="">
@@ -57,7 +57,4 @@ export default {
     </main>
 </template>
 <style lang="scss" scoped>
-	.container{
-		background-color: #f3f3f3;
-	}
 </style>
