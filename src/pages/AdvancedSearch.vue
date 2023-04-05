@@ -125,7 +125,7 @@ export default {
 
 				<div class="container-filter">
 					<div class="box d-flex">
-						<div class="service">
+						<div class="services">
 							<button class="service-button d-flex justify-content-around align-items-center"
 								data-bs-toggle="modal" data-bs-target="#exampleModal">
 								<i class="fa-solid fa-list-check fa-2x"></i>
@@ -135,13 +135,13 @@ export default {
 							</div>
 						</div>
 						<div class="baths">
-							<input type="text" id="customInput1" v-model="minBaths" @keyup="applyFilters">
+							<input type="number" id="customInput1" v-model="minBaths" @keyup="applyFilters">
 							<div class="text-center">
 								<label for="customInput1" class="form-label">Bagni</label>
 							</div>
 						</div>
 						<div class="beds">
-							<input type="text" id="customRange1" v-model="minBeds" @keyup="applyFilters">
+							<input type="number" id="customRange1" v-model="minBeds" @keyup="applyFilters">
 							<div class="text-center">
 								<label for="customRange1" class="form-label">Letti</label>
 							</div>
