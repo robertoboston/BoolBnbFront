@@ -9,12 +9,12 @@
 </script>
 <template>
 	<div id="jumbotron">
+		<img src="../assets/images/plane.png" alt="" id="plane-img">
 		<div class="container h-100">
-
 			<div class="row h-100">
-				<div class="col-12 col-md-7 px-0" id="search-jumbo">
-					<div class="content">
-						<h1 class="text-center mb-4 d-none d-sm-block">Scegli la tua prossima destinazione</h1>
+				<div class="col-12 col-md-7 px-0 d-flex align-items-center" id="search-jumbo">
+					<div class="content d-flex flex-wrap justify-content-center">
+						<img src="../assets/images/title-img.png" alt="" id="title-img" class="d-none d-md-block img-fluid mb-2">
 						<Searchbar> </Searchbar>
 					</div>
 				</div>
@@ -28,22 +28,24 @@
 <style lang="scss">
 @use '../styles/partials/variables' as *;
 	#jumbotron{
-		// position: relative;
+		position: relative;
 		height: 65vh;
 		margin-bottom: 3rem;
-		// background-color: rgba($brand-blue, 0.4);
 		background-color: #B7DDFB;
+		#plane-img{
+			height: 120px;
+			position: absolute;
+			top: 1rem;
+			left: 2rem;
+		}
 		.row{
 			#search-jumbo{
-				position: relative;
 				.content{
-					position: absolute;
-					bottom: 50%;
-					left: 50%;
-					transform: translateX( -50%);
+					text-align:center;
 					h1{
 						font-size: 2.75rem;
 					}
+
 				}
 			}
 			#img-jumbo{
@@ -57,10 +59,22 @@
 			}
 		}
 	}
+	// lg
+	@media screen and (max-width: 991px) {
+		#jumbotron{
+			height: 350px;
+			#search-container{
+				width: 400px;
+			}
+			#plane-img{
+				height: 75px;
+			}
+		}
+	}
 	// medium
 	@media screen and (max-width: 767px) {
 		#jumbotron{
-			height: 300px;
+			height: 200px;
 			.row{
 				#search-jumbo{
 					position: relative;
@@ -80,7 +94,6 @@
 	// small
 	@media screen and (max-width: 575px) {
 		#jumbotron{
-			height: 160px;
 			.row{
 				#search-jumbo{
 					position: relative;
