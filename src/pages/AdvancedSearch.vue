@@ -218,9 +218,8 @@ export default {
 	</main>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #advancedContainer {
-
 	.container-filter {
 		margin: 0 auto;
 		display: flex;

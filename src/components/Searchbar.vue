@@ -111,6 +111,7 @@ export default {
 		z-index: 2;
 		li{
 			cursor: pointer;
+			text-align: left;
 			&:hover{
 				background-color: #eaeaea;
 			}
