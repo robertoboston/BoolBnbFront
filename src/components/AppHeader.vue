@@ -34,10 +34,10 @@ export default {
 				<ul class="navbar-nav ml-auto">
 					<!-- Authentication Links -->
                 <div class="mx-3">
-                    <a href="http://127.0.0.1:8000/login" class="text-black fw-bolder">Login</a>
+                    <a href="http://127.0.0.1:8000/login" class="fw-bolder menu_items">Login</a>
 				</div>
 				<div>
-					<a href="http://127.0.0.1:8000/register" class="text-black fw-bolder">Register</a>
+					<a href="http://127.0.0.1:8000/register" class="fw-bolder menu_items">Register</a>
 				</div>
                     
                     
@@ -69,35 +69,43 @@ export default {
 </template>
 <style lang="scss" scoped>
 header {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 3;
-    width: 100%;
-    nav {
-        #logo-container {
-            h2 {
-                font-weight: 600;
-                margin-bottom: 0;
-            }
-        }
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 3;
+	width: 100%;
 
-        a {
-            text-decoration: none;
-        }
+	nav {
+		#logo-container {
+			h2 {
+				font-weight: 600;
+				margin-bottom: 0;
+			}
+		}
 
-        .color-blue {
-            color: #3FA9F5;
-            ;
-        }
+		a {
+			text-decoration: none;
+		}
 
-        .color-yellow {
-            color: #FC9D15;
-        }
+		.menu_items {
+			color: black;
 
-        .color-red {
-            color: #E33F3D;
-        }
-    }
+			&:hover {
+				color: #3FA9F5;
+			}
+		}
+
+		.color-blue {
+			color: #3FA9F5;
+		}
+
+		.color-yellow {
+			color: #FC9D15;
+		}
+
+		.color-red {
+			color: #E33F3D;
+		}
+	}
 }
 </style>
