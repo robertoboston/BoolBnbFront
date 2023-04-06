@@ -117,14 +117,14 @@ export default {
 	<main>
 		<div class="container rounded-4 py-2 mt-4 bg-white" id="advancedContainer">
 			<div class="row justify-content-center mt-4">
-				<Searchbar @search="filteredApartmentsByPosition"> </Searchbar>
+				<Searchbar class="searchbar" @search="filteredApartmentsByPosition"> </Searchbar>
 			</div>
 			<div class="row">
 
 				<!-- Button trigger modal -->
 
 				<div class="container-filter">
-					<div class="box d-flex">
+					<div class="box">
 						<div class="services">
 							<button class="service-button d-flex justify-content-around align-items-center"
 								data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -158,7 +158,7 @@ export default {
 							<label for="customRange1" class="form-label"><strong>Km:</strong> {{ kilometers }}</label>
 						</div>
 						<input class="km-range" type="range" id="customRange1" v-model="kilometers" @change="applyFilters"
-							min="5">
+							min="5" max="25">
 					</div>
 				</div>
 
@@ -220,6 +220,11 @@ export default {
 
 <style lang="scss" scoped>
 #advancedContainer {
+
+    .searchbar{
+		border: 2px solid black;
+		border-radius: 20px;
+	}
 	.container-filter {
 		margin: 0 auto;
 		display: flex;
@@ -230,7 +235,8 @@ export default {
 	.box {
 		height: 40px;
 		width: 600px;
-
+		display: flex;
+		justify-content: center;
 	}
 
 	.service,
@@ -248,6 +254,7 @@ export default {
 		background-color: #fc9d15;
 		border: none;
 		border-radius: 5px;
+		margin-top: 10px;
 	}
 
 	.service-button:hover {
