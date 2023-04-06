@@ -70,37 +70,42 @@ export default {
 	<main>
 		<div class="container rounded-4 py-2 mt-4 bg-white" id="advancedContainer">
 			<div class="row justify-content-center mt-4">
+				<!-- Searchbar -->
 				<div class="col-12 col-md-5">
 					<Searchbar class="searchbar" @search="filteredApartmentsByPosition"> </Searchbar>
 				</div>
-				<div class="col-12 col-md-6 m-0 p-0">
-					<div class="row border">
-						<div class="col-2 d-flex flex-column justify-content-center">
-							<button class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-								<i class="fa-solid fa-list-check fa-xl"></i>
+				<!-- Filter -->
+				<div class="col-12 col-md-6">
+					<div class="row services">
+						<!-- Services -->
+						<div class="col-2 d-flex flex-column justify-content-center border_end">
+							<button class="btn p-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+								<i class="fa-solid fa-list-check fa-lg"></i>
 							</button>
-							<label class="text-center">Servizi</label>
+							<label class="services_labels text-center">Servizi</label>
 						</div>
-						<div class="col-2 d-flex flex-column justify-content-center">
+						<!-- Baths -->
+						<div class="col-2 d-flex flex-column justify-content-center border_end">
 							<input type="number" id="customInput1" v-model="minBaths"
 								@change="filteredApartmentsByPosition(this.searchLat, this.searchLon)"
 								@keyup="filteredApartmentsByPosition(this.searchLat, this.searchLon)" min="0"
-								class="baths m-auto border-0">
-							<label for="customInput1" class="form-label text-center m-0">Bagni</label>
+								class="baths mx-auto border-0">
+							<label for="customInput1" class="services_labels text-center m-0">Bagni</label>
 						</div>
-						<div class="col-2 d-flex flex-column justify-content-center">
+						<!-- Beds -->
+						<div class="col-2 d-flex flex-column justify-content-center border_end">
 							<input type=" number" id="customRange1" v-model="minBeds"
 								@change="filteredApartmentsByPosition(this.searchLat, this.searchLon)"
 								@keyup="filteredApartmentsByPosition(this.searchLat, this.searchLon)"
-								class="beds m-auto border-0">
-							<label for="customRange1" class="form-label text-center m-0">Letti</label>
+								class="beds mx-auto border-0">
+							<label for="customRange1" class="services_labels text-center m-0">Letti</label>
 						</div>
 						<div class="col-6 d-flex">
 							<div class="d-flex align-items-center justify-content-center w-25">
 								<i class="fa-solid fa-route fa-2xl"></i>
 							</div>
 							<div class=" d-flex flex-column justify-content-center w-75">
-								<label for="customRange1" class="form-label m-0"><strong>Km:</strong> {{ kilometers
+								<label for="customRange1" class="m-0"><strong>Km:</strong> {{ kilometers
 								}}</label>
 								<input class="km-range m-0 w-100" type="range" id="customRange1" v-model="kilometers"
 									@change="filteredApartmentsByPosition(this.searchLat, this.searchLon)" min="5" max="25">
@@ -150,9 +155,20 @@ export default {
 <style lang="scss" scoped>
 #advancedContainer {
 
-	.searchbar {
-		border: 2px solid black;
+	.searchbar,
+	.services {
+		border: 2px solid #3fa9f5;
 		border-radius: 20px;
+		height: 56px;
+
+		.border_end {
+			border-right: 2px solid #3fa9f5;
+		}
+
+		.services_labels {
+			font-size: .8rem;
+			font-weight: 600;
+		}
 	}
 
 	.range {

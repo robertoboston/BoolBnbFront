@@ -81,7 +81,7 @@ export default {
 @use '../styles/partials/variables' as *;
 
 #search-container {
-	width: 500px;
+	width: 100%;
 	position: relative;
 
 	#searchbar {
@@ -138,4 +138,5 @@ export default {
 			}
 		}
 	}
-}</style>
+}
+</style>
