@@ -73,7 +73,7 @@ export default {
 				<div class="col-12 col-md-5">
 					<Searchbar class="searchbar" @search="filteredApartmentsByPosition"> </Searchbar>
 				</div>
-				<div class="col-12 col-md-6">
+				<div class="col-12 col-md-6 m-0 p-0">
 					<div class="row border">
 						<div class="col-2 d-flex flex-column justify-content-center">
 							<button class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -96,10 +96,10 @@ export default {
 							<label for="customRange1" class="form-label text-center m-0">Letti</label>
 						</div>
 						<div class="col-6 d-flex">
-							<div class="d-flex align-items-center me-2">
+							<div class="d-flex align-items-center justify-content-center w-25">
 								<i class="fa-solid fa-route fa-2xl"></i>
 							</div>
-							<div class=" d-flex flex-column justify-content-center">
+							<div class=" d-flex flex-column justify-content-center w-75">
 								<label for="customRange1" class="form-label m-0"><strong>Km:</strong> {{ kilometers
 								}}</label>
 								<input class="km-range m-0 w-100" type="range" id="customRange1" v-model="kilometers"
