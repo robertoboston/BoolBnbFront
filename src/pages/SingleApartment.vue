@@ -120,8 +120,8 @@ export default {
 											<input type="text" class="form-control" id="floatingInput" placeholder="Cognome"
 												v-model="cognome">
 											<label for="floatingInput">Cognome</label>
+										</div>
 									</div>
-								</div>
 								</div>
 								<!-- Email -->
 								<div class="row">
@@ -184,7 +184,8 @@ export default {
 						<div class="col-12 col-md-7">
 							<h4>{{ apartment.prezzo }}&euro;/Notte</h4>
 							<h5>Bagni: {{ apartment.numero_di_bagni }}</h5>
-							<h5>letti: {{ apartment.numero_di_stanze }}</h5>
+							<h5>Letti: {{ apartment.numero_di_letti }}</h5>
+							<h5>Stanze: {{ apartment.numero_di_stanze }}</h5>
 							<h5>Metri Quadri: {{ apartment.metri_quadri }}mq</h5>
 							<h5>Servizi:</h5>
 							<ul v-for="(service, index) in apartment.services" :key="index">
@@ -192,9 +193,6 @@ export default {
 							</ul>
 
 						</div>
-						<!-- <div class="col-12 col-md-5">
-
-																</div> -->
 					</div>
 				</div>
 			</div>
@@ -205,6 +203,7 @@ export default {
 
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
+
 .offcanvas_size {
 	width: 100%;
 }
