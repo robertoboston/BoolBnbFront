@@ -11,22 +11,7 @@ export default {
 	props: {
 		apartment: Object
 	},
-	mounted() {
-		axios.get('https://api.db-ip.com/v2/free/self').then((response) => {
 
-			const data = {
-				apartment_id: this.apartment.id,
-				IP: response.data.ipAddress,
-			}
-
-			axios.put(`${this.store.baseUrl}api/views`, data).then((response) => {
-				if (!response.data.success) {
-					this.errors = response.data.errors;
-					console.log(this.errors);
-				}
-			});
-		})
-	}
 }
 </script>
 <template>
@@ -46,8 +31,8 @@ export default {
 						<div class="w-75 bg">
 							<h4 class="card-title fs-6">{{ apartment.descrizione }}</h4>
 							<hr class="mt-1 mb-1">
-							<p class="card-text">{{ apartment.position.indirizzo }} {{ apartment.position.N_civico }}, 
-								{{ apartment.position.città }},  {{ apartment.position.Nazione }}</p>
+							<p class="card-text">{{ apartment.position.indirizzo }} {{ apartment.position.N_civico }},
+								{{ apartment.position.città }}, {{ apartment.position.Nazione }}</p>
 						</div>
 					</div>
 				</router-link>
@@ -58,6 +43,7 @@ export default {
 <style lang="scss" scoped>
 .apartment_card {
 	transition: box-shadow 0.5s ease;
+
 	.card_img_container {
 		width: 100%;
 		height: 220px;
@@ -71,15 +57,15 @@ export default {
 			// transition: box-shadow 0.5s ease;
 		}
 
-		.price{
+		.price {
 			position: absolute;
 			top: .5rem;
 			right: .5rem;
-			background-color: rgba(0,0,0,0.5)
+			background-color: rgba(0, 0, 0, 0.5)
 		}
 	}
 
-	.apartment-info{
+	.apartment-info {
 		transition: border 0.5s ease;
 	}
 

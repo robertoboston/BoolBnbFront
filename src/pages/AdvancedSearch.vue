@@ -45,80 +45,20 @@ export default {
 				minBeds: this.minBeds
 			};
 
-			axios.get(`${this.store.baseUrl}api/get-apartments/`,  { params: filters }).then((response) => {
+			axios.get(`${this.store.baseUrl}api/get-apartments/`, { params: filters }).then((response) => {
 				if (response.data.success) {
 					this.apartments = response.data.apartments;
-					
-					console.log(this.apartments);
+
 					this.apartmentsToShow = this.apartments
 					// this.applyFilters();
 					this.loading = false;
 				}
 			});
 		},
-		distance(lat1, lon1, lat2, lon2) {
-			var R = 6371; // km
-			var dLat = this.toRad(lat2 - lat1);
-			var dLon = this.toRad(lon2 - lon1);
-			var lat1 = this.toRad(lat1);
-			var lat2 = this.toRad(lat2);
 
-			var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-				Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-			var d = R * c;
-			return d;
-		},
-
-		// Converts numeric degrees to radians
-		toRad(Value) {
-			return Value * Math.PI / 180;
-		},
-
-		applyFilters() {
-			this.apartmentsToShow = this.apartments;
-
-			// //position 
-			// this.apartmentsToShow = this.apartments.filter((apartment) => {
-			// 	console.log(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine))
-			// 	if (this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers) {
-			// 		return apartment;
-			// 	}
-			// });
-
-			// //Services filter
-			// if (this.serviceFilters) {
-			// 	for (let i in this.serviceFilters) {
-			// 		this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
-			// 			for (let k in apartment.services) {
-			// 				if (apartment.services[k].id === this.serviceFilters[i])
-			// 					return apartment;
-			// 			}
-			// 		})
-			// 	}
-			// }
-
-			// //Minimum baths filter
-			// if (this.minBaths > 0 && this.minBaths < 255) {
-			// 	this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
-			// 		if (apartment.numero_di_bagni >= this.minBaths)
-			// 			return apartment;
-			// 	});
-			// }
-
-			// //Minimum number of beds filter
-			// if (this.minBeds > 0 && this.minBeds < 32555) {
-			// 	this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
-			// 		console.log(apartment)
-			// 		if (apartment.numero_di_letti >= this.minBeds)
-			// 			return apartment;
-			// 	});
-			// }
-			// console.log(this.apartmentsToShow)
-		},
 		syncServiceFilter(service) {
-			if(!this.serviceFilters.includes(service.nome)) 
-				this.serviceFilters.push(service.nome) 
+			if (!this.serviceFilters.includes(service.nome))
+				this.serviceFilters.push(service.nome)
 			else
 				this.serviceFilters = this.serviceFilters.filter((filter) => filter != service.nome);
 		}
@@ -129,52 +69,54 @@ export default {
 <template>
 	<main>
 		<div class="container rounded-4 py-2 mt-4 bg-white" id="advancedContainer">
-			<div class="row justify-content-center mt-4">
-				<Searchbar class="searchbar" @search="filteredApartmentsByPosition"> </Searchbar>
-			</div>
-			<div class="row">
-
-				<!-- Button trigger modal -->
-
-				<div class="container-filter">
-					<div class="box">
-						<div class="services">
-							<button class="service-button d-flex justify-content-around align-items-center"
-								data-bs-toggle="modal" data-bs-target="#exampleModal">
-								<i class="fa-solid fa-list-check fa-2x"></i>
+			<!-- Searchbar and filter -->
+			<div class="row justify-content-center my-4">
+				<!-- Searchbar -->
+				<div class="col-12 col-md-5 mb-2 mb-sm-2 mb-md-0">
+					<Searchbar class="searchbar" @search="filteredApartmentsByPosition"> </Searchbar>
+				</div>
+				<!-- Filter -->
+				<div class="col-11 col-md-6">
+					<div class="row services">
+						<!-- Services -->
+						<div class="col-2 d-flex flex-column justify-content-center border_end">
+							<button class="btn p-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+								<i class="fa-solid fa-list-check fa-lg"></i>
 							</button>
-							<div class="text-center">
-								Servizi
-							</div>
+							<label class="services_labels text-center">Servizi</label>
 						</div>
-						<div class="baths">
-							<input type="number" id="customInput1" v-model="minBaths" @change="filteredApartmentsByPosition(this.searchLat,this.searchLon)" @keyup="filteredApartmentsByPosition(this.searchLat,this.searchLon)">
-							<div class="text-center">
-								<label for="customInput1" class="form-label">Bagni</label>
-							</div>
+						<!-- Baths -->
+						<div class="col-2 d-flex flex-column justify-content-center border_end">
+							<input type="number" id="customInput1" v-model="minBaths"
+								@change="filteredApartmentsByPosition(this.searchLat, this.searchLon)"
+								@keyup="filteredApartmentsByPosition(this.searchLat, this.searchLon)" min="0"
+								class="baths mx-auto">
+							<label for="customInput1" class="services_labels text-center m-0">Bagni</label>
 						</div>
-						<div class="beds">
-							<input type="number" id="customRange1" v-model="minBeds" @change="filteredApartmentsByPosition(this.searchLat,this.searchLon)" @keyup="filteredApartmentsByPosition(this.searchLat,this.searchLon)">
-							<div class="text-center">
-								<label for="customRange1" class="form-label">Letti</label>
+						<!-- Beds -->
+						<div class="col-2 d-flex flex-column justify-content-center border_end">
+							<input type=" number" id="customRange1" v-model="minBeds"
+								@change="filteredApartmentsByPosition(this.searchLat, this.searchLon)"
+								@keyup="filteredApartmentsByPosition(this.searchLat, this.searchLon)" min="0"
+								class="beds mx-auto">
+							<label for="customRange1" class="services_labels text-center m-0">Letti</label>
+						</div>
+						<div class="col-6 d-flex">
+							<div class="d-flex align-items-center justify-content-center w-25">
+								<i class="fa-solid fa-route fa-2xl"></i>
+							</div>
+							<div class=" d-flex flex-column justify-content-center w-75">
+								<label for="customRange1" class="m-0"><strong>Km:</strong> {{ kilometers
+								}}</label>
+								<input class="km-range m-0 w-100" type="range" id="customRange1" v-model="kilometers"
+									@change="filteredApartmentsByPosition(this.searchLat, this.searchLon)" min="5" max="25">
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<div class="range-km-container">
-					<div class="type-range">
-						<div class="text-center">
-							<div>
-								<i class="fa-solid fa-route fa-2x"></i>
-							</div>
-							<label for="customRange1" class="form-label"><strong>Km:</strong> {{ kilometers }}</label>
-						</div>
-						<input class="km-range" type="range" id="customRange1" v-model="kilometers" @change="filteredApartmentsByPosition(this.searchLat,this.searchLon)"
-							min="5">
-					</div>
-				</div>
-
+			</div>
+			<!-- Modal container -->
+			<div class="row">
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
 					aria-hidden="true">
@@ -194,37 +136,19 @@ export default {
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
 								<button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-									@click="filteredApartmentsByPosition(this.searchLat,this.searchLon)">Applica
+									@click="filteredApartmentsByPosition(this.searchLat, this.searchLon)">Applica
 									filtri</button>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+			<!-- Apartments -->
+			<div class="row">
 				<div class="col-12 mt-4 d-flex flex-wrap">
 					<!-- ciclio for ApartmentCard -->
 					<ApartmentCard v-for="(item, index) in this.apartmentsToShow" :key="index" :apartment="item">
 					</ApartmentCard>
-					<!-- <div class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index"
-
-															<div v-if="apartmentsToShow.length == 0">
-
-															</div>
-															<div v-else class="card" v-for="(apartment, index) in this.apartmentsToShow" :key="index"
-
-																style="width: 18rem;">
-																<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://picsum.photos/300/200'"
-																	class="card-img-top" alt="...">
-																<div class="card-body">
-																	<h4 class="card-title">{{ apartment.descrizione }}</h4>
-																	<p class="card-text">{{ apartment.position.indirizzo }}, {{ apartment.position.città }},
-																		{{ apartment.position.N_civico }}, {{ apartment.position.Nazione }}</p>
-																	<h5 class="text-end fw-bolder">&euro; {{ apartment.prezzo }} notte</h5>
-																	<router-link :to="{ name: 'single-apartment', params: { slug: apartment.slug } }"
-																		class="btn btn-sm btn-success">
-																		Vai all'appartamento
-																	</router-link>
-																</div>
-															</div> -->
 				</div>
 			</div>
 		</div>
@@ -234,93 +158,68 @@ export default {
 <style lang="scss" scoped>
 #advancedContainer {
 
-    .searchbar{
-		border: 2px solid black;
+	.searchbar,
+	.services {
+		border: 2px solid #3fa9f5;
 		border-radius: 20px;
-	}
-	.container-filter {
-		margin: 0 auto;
-		display: flex;
-		justify-content: center;
+		height: 56px;
 
-	}
+		.border_end {
+			border-right: 2px solid #3fa9f5;
+		}
 
-	.box {
-		height: 40px;
-		width: 600px;
-		display: flex;
-		justify-content: center;
+		.services_labels {
+			font-size: .8rem;
+			font-weight: 600;
+		}
 	}
 
-	.service,
-	.baths,
-	.beds,
 	.range {
-		width: calc(100% / 3 - 20px);
-		height: 100%;
 		margin: 10px;
 	}
 
 	.service-button {
-		height: 100%;
-		width: 100%;
-		background-color: #fc9d15;
+		background-color: #3fa9f5;
 		border: none;
 		border-radius: 5px;
-		margin-top: 10px;
 	}
 
 	.service-button:hover {
 		background-color: #dd8913;
 	}
 
-	.baths input {
+	.baths {
 		width: 100%;
-		height: 100%;
+		appearance: textfield;
 		text-align: center;
-		font-size: 25px;
-		background-color: #e33f3d;
-		border: none;
-		border-radius: 5px;
+		border: 0;
+
+		&:focus-visible {
+			border: 0;
+			outline: 0;
+		}
 	}
 
-	.baths input:hover {
-		background-color: #c43431;
-
-	}
-
-	.beds input {
+	.beds {
 		width: 100%;
-		height: 100%;
+		appearance: textfield;
 		text-align: center;
-		font-size: 25px;
-		background-color: #3fa9f5;
-		border: none;
-		border-radius: 5px;
-	}
+		border: 0;
 
-	.beds input:hover {
-		background-color: #348fd0;
-
-	}
-
-	.range-km-container {
-		display: flex;
-		justify-content: center;
-		padding: 70px
+		&:focus-visible {
+			border: 0;
+			outline: 0;
+		}
 	}
 
 	.km-range {
 		cursor: pointer;
-		margin: auto;
 		-webkit-appearance: none;
 		position: relative;
 		overflow: hidden;
-		height: 30px;
-		width: 300px;
 		cursor: pointer;
 		border-radius: 0;
-		/* iOS */
+		height: 10px;
 	}
 
 	::-webkit-slider-runnable-track {
@@ -392,8 +291,8 @@ export default {
 
 	input::-webkit-outer-spin-button,
 	input::-webkit-inner-spin-button {
-  		-webkit-appearance: none;
-  		margin: 0;
+		-webkit-appearance: none;
+		margin: 0;
 	}
 
 }
