@@ -121,8 +121,8 @@ export default {
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
 					aria-hidden="true">
 					<div class="modal-dialog modal-dialog-scrollable">
-						<div class="modal-content">
-							<div class="modal-header">
+						<div class="modal-content border_modal">
+							<div class="modal-header border_header">
 								<h1 class="modal-title fs-5" id="exampleModalLabel">Servizi</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
@@ -133,7 +133,7 @@ export default {
 									<label for="">{{ service.nome }}</label>
 								</div>
 							</div>
-							<div class="modal-footer">
+							<div class="modal-footer border_footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
 								<button type="button" class="btn btn-primary" data-bs-dismiss="modal"
 									@click="filteredApartmentsByPosition(this.searchLat, this.searchLon)">Applica
@@ -156,6 +156,18 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.border_modal {
+	border: 2px solid #3fa9f5;
+
+	.border_header {
+		border-bottom: 2px solid #3fa9f5;
+	}
+
+	.border_footer {
+		border-top: 2px solid #3fa9f5;
+	}
+}
+
 #advancedContainer {
 
 	.searchbar,
