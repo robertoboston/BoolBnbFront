@@ -128,16 +128,16 @@ export default {
 </script>
 <template>
 	<main>
-		<div class="container rounded-4 mb-4 py-2" id="advancedContainer">
+		<div class="container rounded-4 py-2 mt-4 bg-white" id="advancedContainer">
 			<div class="row justify-content-center mt-4">
-				<Searchbar @search="filteredApartmentsByPosition"> </Searchbar>
+				<Searchbar class="searchbar" @search="filteredApartmentsByPosition"> </Searchbar>
 			</div>
 			<div class="row">
 
 				<!-- Button trigger modal -->
 
 				<div class="container-filter">
-					<div class="box d-flex">
+					<div class="box">
 						<div class="services">
 							<button class="service-button d-flex justify-content-around align-items-center"
 								data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -231,10 +231,13 @@ export default {
 	</main>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #advancedContainer {
-	background-color: #f3f3f3;
 
+    .searchbar{
+		border: 2px solid black;
+		border-radius: 20px;
+	}
 	.container-filter {
 		margin: 0 auto;
 		display: flex;
@@ -245,7 +248,8 @@ export default {
 	.box {
 		height: 40px;
 		width: 600px;
-
+		display: flex;
+		justify-content: center;
 	}
 
 	.service,
@@ -263,6 +267,7 @@ export default {
 		background-color: #fc9d15;
 		border: none;
 		border-radius: 5px;
+		margin-top: 10px;
 	}
 
 	.service-button:hover {
