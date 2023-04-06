@@ -69,13 +69,14 @@ export default {
 <template>
 	<main>
 		<div class="container rounded-4 py-2 mt-4 bg-white" id="advancedContainer">
-			<div class="row justify-content-center mt-4">
+			<!-- Searchbar and filter -->
+			<div class="row justify-content-center my-4">
 				<!-- Searchbar -->
-				<div class="col-12 col-md-5">
+				<div class="col-12 col-md-5 mb-2 mb-sm-2 mb-md-0">
 					<Searchbar class="searchbar" @search="filteredApartmentsByPosition"> </Searchbar>
 				</div>
 				<!-- Filter -->
-				<div class="col-12 col-md-6">
+				<div class="col-11 col-md-6">
 					<div class="row services">
 						<!-- Services -->
 						<div class="col-2 d-flex flex-column justify-content-center border_end">
@@ -89,15 +90,15 @@ export default {
 							<input type="number" id="customInput1" v-model="minBaths"
 								@change="filteredApartmentsByPosition(this.searchLat, this.searchLon)"
 								@keyup="filteredApartmentsByPosition(this.searchLat, this.searchLon)" min="0"
-								class="baths mx-auto border-0">
+								class="baths mx-auto">
 							<label for="customInput1" class="services_labels text-center m-0">Bagni</label>
 						</div>
 						<!-- Beds -->
 						<div class="col-2 d-flex flex-column justify-content-center border_end">
 							<input type=" number" id="customRange1" v-model="minBeds"
 								@change="filteredApartmentsByPosition(this.searchLat, this.searchLon)"
-								@keyup="filteredApartmentsByPosition(this.searchLat, this.searchLon)"
-								class="beds mx-auto border-0">
+								@keyup="filteredApartmentsByPosition(this.searchLat, this.searchLon)" min="0"
+								class="beds mx-auto">
 							<label for="customRange1" class="services_labels text-center m-0">Letti</label>
 						</div>
 						<div class="col-6 d-flex">
@@ -114,6 +115,7 @@ export default {
 					</div>
 				</div>
 			</div>
+			<!-- Modal container -->
 			<div class="row">
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -141,6 +143,7 @@ export default {
 					</div>
 				</div>
 			</div>
+			<!-- Apartments -->
 			<div class="row">
 				<div class="col-12 mt-4 d-flex flex-wrap">
 					<!-- ciclio for ApartmentCard -->
@@ -186,15 +189,27 @@ export default {
 	}
 
 	.baths {
-		width: 50px;
+		width: 100%;
 		appearance: textfield;
 		text-align: center;
+		border: 0;
+
+		&:focus-visible {
+			border: 0;
+			outline: 0;
+		}
 	}
 
 	.beds {
-		width: 50px;
+		width: 100%;
 		appearance: textfield;
 		text-align: center;
+		border: 0;
+
+		&:focus-visible {
+			border: 0;
+			outline: 0;
+		}
 	}
 
 	.km-range {
