@@ -94,6 +94,9 @@
 	// small
 	@media screen and (max-width: 575px) {
 		#jumbotron{
+			#plane-img{
+				height: 40px;
+			}
 			.row{
 				#search-jumbo{
 					position: relative;
