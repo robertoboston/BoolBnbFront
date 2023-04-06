@@ -33,13 +33,25 @@ export default {
 	},
 	methods: {
 		filteredApartmentsByPosition(reqLat, reqLon) {
-			this.searchLon = reqLon
-			this.searchLat = reqLat
+			this.searchLon = reqLon;
+			this.searchLat = reqLat;
 
-			axios.get(`${this.store.baseUrl}api/apartments`).then((response) => {
+			const filters = {
+				latitude: this.searchLat,
+				longitude: this.searchLon,
+				services: this.serviceFilters,
+				range: this.kilometers,
+				minBaths: this.minBaths,
+				minBeds: this.minBeds
+			};
+
+			axios.get(`${this.store.baseUrl}api/get-apartments/`,  { params: filters }).then((response) => {
 				if (response.data.success) {
-					this.apartments = response.data.apartments.data;
-					this.applyFilters();
+					this.apartments = response.data.apartments;
+					
+					console.log(this.apartments);
+					this.apartmentsToShow = this.apartments
+					// this.applyFilters();
 					this.loading = false;
 				}
 			});
@@ -66,48 +78,49 @@ export default {
 		applyFilters() {
 			this.apartmentsToShow = this.apartments;
 
-			//position 
-			this.apartmentsToShow = this.apartments.filter((apartment) => {
-				console.log(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine))
-				if (this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers) {
-					return apartment;
-				}
-			});
+			// //position 
+			// this.apartmentsToShow = this.apartments.filter((apartment) => {
+			// 	console.log(this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine))
+			// 	if (this.distance(this.searchLat, this.searchLon, apartment.position.Latitudine, apartment.position.Longitudine) <= this.kilometers) {
+			// 		return apartment;
+			// 	}
+			// });
 
-			//Services filter
-			if (this.serviceFilters) {
-				for (let i in this.serviceFilters) {
-					this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
-						for (let k in apartment.services) {
-							if (apartment.services[k].id === this.serviceFilters[i])
-								return apartment;
-						}
-					})
-				}
-			}
+			// //Services filter
+			// if (this.serviceFilters) {
+			// 	for (let i in this.serviceFilters) {
+			// 		this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
+			// 			for (let k in apartment.services) {
+			// 				if (apartment.services[k].id === this.serviceFilters[i])
+			// 					return apartment;
+			// 			}
+			// 		})
+			// 	}
+			// }
 
-			//Minimum baths filter
-			if (this.minBaths > 0 && this.minBaths < 255) {
-				this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
-					if (apartment.numero_di_bagni >= this.minBaths)
-						return apartment;
-				});
-			}
+			// //Minimum baths filter
+			// if (this.minBaths > 0 && this.minBaths < 255) {
+			// 	this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
+			// 		if (apartment.numero_di_bagni >= this.minBaths)
+			// 			return apartment;
+			// 	});
+			// }
 
-			//Minimum number of beds filter
-			if (this.minBeds > 0 && this.minBeds < 32555) {
-				this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
-					console.log(apartment)
-					if (apartment.numero_di_letti >= this.minBeds)
-						return apartment;
-				});
-			}
-			console.log(this.apartmentsToShow)
+			// //Minimum number of beds filter
+			// if (this.minBeds > 0 && this.minBeds < 32555) {
+			// 	this.apartmentsToShow = this.apartmentsToShow.filter((apartment) => {
+			// 		console.log(apartment)
+			// 		if (apartment.numero_di_letti >= this.minBeds)
+			// 			return apartment;
+			// 	});
+			// }
+			// console.log(this.apartmentsToShow)
 		},
 		syncServiceFilter(service) {
-			(!this.serviceFilters.includes(service.id)) ?
-				this.serviceFilters.push(service.id) :
-				this.serviceFilters.pop(service.id);
+			if(!this.serviceFilters.includes(service.nome)) 
+				this.serviceFilters.push(service.nome) 
+			else
+				this.serviceFilters = this.serviceFilters.filter((filter) => filter != service.nome);
 		}
 	}
 
@@ -135,13 +148,13 @@ export default {
 							</div>
 						</div>
 						<div class="baths">
-							<input type="number" id="customInput1" v-model="minBaths" @keyup="applyFilters">
+							<input type="number" id="customInput1" v-model="minBaths" @change="filteredApartmentsByPosition(this.searchLat,this.searchLon)" @keyup="filteredApartmentsByPosition(this.searchLat,this.searchLon)">
 							<div class="text-center">
 								<label for="customInput1" class="form-label">Bagni</label>
 							</div>
 						</div>
 						<div class="beds">
-							<input type="number" id="customRange1" v-model="minBeds" @keyup="applyFilters">
+							<input type="number" id="customRange1" v-model="minBeds" @change="filteredApartmentsByPosition(this.searchLat,this.searchLon)" @keyup="filteredApartmentsByPosition(this.searchLat,this.searchLon)">
 							<div class="text-center">
 								<label for="customRange1" class="form-label">Letti</label>
 							</div>
@@ -157,8 +170,8 @@ export default {
 							</div>
 							<label for="customRange1" class="form-label"><strong>Km:</strong> {{ kilometers }}</label>
 						</div>
-						<input class="km-range" type="range" id="customRange1" v-model="kilometers" @change="applyFilters"
-							min="5" max="25">
+						<input class="km-range" type="range" id="customRange1" v-model="kilometers" @change="filteredApartmentsByPosition(this.searchLat,this.searchLon)"
+							min="5">
 					</div>
 				</div>
 
@@ -181,7 +194,7 @@ export default {
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
 								<button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-									@click="applyFilters">Applica
+									@click="filteredApartmentsByPosition(this.searchLat,this.searchLon)">Applica
 									filtri</button>
 							</div>
 						</div>
