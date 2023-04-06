@@ -73,7 +73,7 @@ export default {
 				<div class="col-12 col-md-5">
 					<Searchbar class="searchbar" @search="filteredApartmentsByPosition"> </Searchbar>
 				</div>
-				<div class="col-12 col-md-7">
+				<div class="col-12 col-md-6">
 					<div class="row border">
 						<div class="col-2 d-flex flex-column justify-content-center">
 							<button class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -85,14 +85,15 @@ export default {
 							<input type="number" id="customInput1" v-model="minBaths"
 								@change="filteredApartmentsByPosition(this.searchLat, this.searchLon)"
 								@keyup="filteredApartmentsByPosition(this.searchLat, this.searchLon)" min="0"
-								class="baths m-auto">
-							<label for="customInput1" class="form-label text-center">Bagni</label>
+								class="baths m-auto border-0">
+							<label for="customInput1" class="form-label text-center m-0">Bagni</label>
 						</div>
 						<div class="col-2 d-flex flex-column justify-content-center">
 							<input type=" number" id="customRange1" v-model="minBeds"
 								@change="filteredApartmentsByPosition(this.searchLat, this.searchLon)"
-								@keyup="filteredApartmentsByPosition(this.searchLat, this.searchLon)" class="beds m-auto">
-							<label for="customRange1" class="form-label text-center">Letti</label>
+								@keyup="filteredApartmentsByPosition(this.searchLat, this.searchLon)"
+								class="beds m-auto border-0">
+							<label for="customRange1" class="form-label text-center m-0">Letti</label>
 						</div>
 						<div class="col-6 d-flex">
 							<div class="d-flex align-items-center me-2">
@@ -101,7 +102,7 @@ export default {
 							<div class=" d-flex flex-column justify-content-center">
 								<label for="customRange1" class="form-label m-0"><strong>Km:</strong> {{ kilometers
 								}}</label>
-								<input class="km-range m-0" type="range" id="customRange1" v-model="kilometers"
+								<input class="km-range m-0 w-100" type="range" id="customRange1" v-model="kilometers"
 									@change="filteredApartmentsByPosition(this.searchLat, this.searchLon)" min="5" max="25">
 							</div>
 						</div>
