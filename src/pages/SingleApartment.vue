@@ -38,6 +38,20 @@ export default {
 			new tt.Marker().setLngLat(center).addTo(map)
 		})
 		//
+		axios.get('https://api.db-ip.com/v2/free/self').then((response) => {
+
+			const data = {
+				apartment_id: this.apartment.id,
+				IP: response.data.ipAddress,
+			}
+
+			axios.put(`${this.store.baseUrl}api/views`, data).then((response) => {
+				if (!response.data.success) {
+					this.errors = response.data.errors;
+					console.log(this.errors);
+				}
+			});
+		})
 	},
 	methods: {
 		sendMessage() {
