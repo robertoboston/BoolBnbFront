@@ -21,7 +21,8 @@ export default {
     mounted() {
         axios.get(`${this.store.baseUrl}api/apartments`).then((response) => {
             if (response.data.success) {
-                this.apartments = response.data.apartments.data;
+                console.log(response.data.apartments)
+                this.apartments = response.data.apartments;
                 this.apartmentsToShow = this.apartments
                 this.loading = false;
             }
