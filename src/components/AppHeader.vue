@@ -37,7 +37,7 @@ export default {
                     <a href="http://127.0.0.1:8000/login" class="fw-bolder menu_items">Login</a>
 				</div>
 				<div>
-					<a href="http://127.0.0.1:8000/register" class="fw-bolder menu_items">Register</a>
+					<a href="http://127.0.0.1:8000/register" class="fw-bolder menu_items">Registrati</a>
 				</div>
                     
                     
@@ -72,7 +72,7 @@ header {
 	position: fixed;
 	top: 0;
 	right: 0;
-	z-index: 3;
+	z-index: 4;
 	width: 100%;
 
 	nav {
