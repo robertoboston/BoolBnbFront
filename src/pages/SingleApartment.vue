@@ -111,12 +111,13 @@ export default {
 					<button class="btn message_button_position message_button_style" type="button"
 						data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
 						title="Invia un messaggio al proprietario"><i class="fa-solid fa-message"></i></button>
-	
-					<div class="offcanvas offcanvas-end offcanvas_size" data-bs-backdrop="static" tabindex="-1" id="offcanvasRight"
-						aria-labelledby="offcanvasRightLabel">
+
+					<div class="offcanvas offcanvas-end offcanvas_size" data-bs-backdrop="static" tabindex="-1"
+						id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 						<div class="offcanvas-header">
 							<h4 class="offcanvas-title" id="offcanvasRightLabel">Invia un messaggio al proprietario</h4>
-							   <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>						</div>
+							<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+						</div>
 						<!-- Form messaggio -->
 						<div class="offcanvas-body">
 							<div class="bg-light p-3 rounded mb-3">
@@ -138,7 +139,7 @@ export default {
 											<label for="floatingInput">Nome</label>
 										</div>
 									</div>
-	
+
 									<div class="col">
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control" id="floatingInput" placeholder="Cognome"
@@ -183,76 +184,88 @@ export default {
 						</div>
 					</div>
 				</div>
-	
-				<div class="col-12 col-md-9 bg-white p-4 rounded-5" id="apartment-card">
+
+				<div class="col-12 col-md-9 bg-white p-4 px-md-5 rounded-5" id="apartment-card">
 					<h1>{{ apartment.descrizione }}</h1>
-					<div class="px-1 my-2" id="address">
-						<img src="../assets/images/home-where.png" alt="">
-						<span id="address">
-							{{ apartment.position.indirizzo }} {{ apartment.position.N_civico }},
-							{{ apartment.position.città }}, {{ apartment.position.Nazione }}
-						</span>
-					</div>
 					<div class="row mb-2">
-						<div class="col-12 col-md-7 px-2 mb-2 cover_container w-75">
+						<div class="col-12 col-md-9 px-2 mb-2 mt-2 cover_container">
 							<!-- cover -->
 							<img :src="apartment.cover ? `${this.store.baseUrl}storage/${apartment.cover}` : 'https://media.istockphoto.com/id/1147544807/it/vettoriale/la-commissione-per-la-immagine-di-anteprima-grafica-vettoriale.jpg?s=612x612&w=0&k=20&c=gsxHNYV71DzPuhyg-btvo-QhhTwWY0z4SGCSe44rvg4='"
 								class="w-100 rounded-3" alt="{{apartment.descrizione}}">
 						</div>
 					</div>
-						<!-- prezzo -->
-						<h4>{{ apartment.prezzo }} &euro; <span class="fw-light fs-6 text-secondary">/Notte</span></h4>
-						<hr class="w-75 my-3">
-						<!-- Servizi -->
+					<!-- prezzo -->
+					<h4>{{ apartment.prezzo }} &euro; <span class="fw-light fs-6 text-secondary">/Notte</span></h4>
+					<hr class="w-75 my-3">
+					<!-- Servizi -->
 					<div class="row">
-						<div class="col-12 col-md-7">
+						<div class="col-12">
 							<h5>Servizi</h5>
-							<ul v-for="(service, index) in apartment.services" :key="index" class="list-unstyled ms-3">
-								<li class="fw-light"><i class="fa-solid fa-check me-2"></i>{{ service.nome }}</li>
-							</ul>
-	
+							<div>
+								<ul class="list-unstyled ms-3 services_list d-flex flex-column flex-wrap">
+									<li v-for="(service, index) in apartment.services" :key="index" class="fw-light"><i
+											class="fa-solid fa-check me-2"></i>{{ service.nome }}</li>
+								</ul>
+							</div>
+
 						</div>
 					</div>
 					<!-- Dettaglio appartamento -->
-					<div class="d-flex flex-wrap flex-md-nowrap mb-3 w-75 pe-4" id="border-none">
-						<div class="col-12 col-md-4 text-center me-3 pt-3 border-end ">
+					<div class="row" id="border-none">
+						<div class="col-6 col-md-3 text-center pt-3 border-end ">
 							<div class="d-flex align-items-center border rounded p-2 mb-3 me-3 shadow">
 								<img class="img-size-40 me-2" src="../assets/images/stanze.png" alt="">
 								<h5 class="fw-light fs-6"> Stanze</h5>
 							</div>
-							<span class="fw-medium fs-4">{{ apartment.numero_di_stanze ? apartment.numero_di_stanze : 'Non specificato' }}</span>
+							<span class="fw-medium fs-4">
+								{{ apartment.numero_di_stanze ? apartment.numero_di_stanze : 'Non specificato' }}
+							</span>
 						</div>
-						<div class="col-12 col-md-4 text-center me-3 pt-3 border-end pe-3">
+						<div class="col-6 col-md-3 text-center pt-3 border-end pe-3">
 							<div class="d-flex align-items-center border rounded p-2 mb-3 shadow">
 								<img class="img-size-40 me-2" src="../assets/images/letti.png" alt="">
 								<h5 class="fw-light fs-6"> Letti</h5>
 							</div>
-							<span class="fw-medium fs-4">{{ apartment.numero_di_letti ? apartment.numero_di_letti : 'Non specificato' }}</span>
+							<span class="fw-medium fs-4">
+								{{ apartment.numero_di_letti ? apartment.numero_di_letti : 'Non specificato' }}
+							</span>
 						</div>
-						<div class="col-12 col-md-4 text-center me-3 pt-3 border-end pe-3">
+						<div class="col-6 col-md-3 text-center pt-3 border-end pe-3">
 							<div class="d-flex align-items-center border rounded p-2 mb-3 me-2 shadow">
 								<img class="img-size-40 me-2" src="../assets/images/bagni(1).png" alt="">
 								<h5 class="fw-light fs-6"> Bagni</h5>
 							</div>
-							<span class="fw-medium fs-4">{{ apartment.numero_di_bagni ? apartment.numero_di_bagni : 'Non specificato' }}</span>
+							<span class="fw-medium fs-4">
+								{{ apartment.numero_di_bagni ? apartment.numero_di_bagni : 'Non specificato' }}
+							</span>
 						</div>
-						<div class="col-12 col-md-4 text-center me-3 pt-3 pe-3">  
+						<div class="col-6 col-md-3 text-center pt-3 pe-3">
 							<div class="d-flex align-items-center border rounded p-2 mb-3  shadow">
 								<img class="img-size-40 me-2" src="../assets/images/dimensione.png" alt="">
 								<h5 class="fw-light fs-6"> Dimensione</h5>
 							</div>
-							<span class="fw-medium fs-4">{{ apartment.metri_quadri ? apartment.metri_quadri : 'Non specificato' }} mq</span>
+							<span class="fw-medium fs-4">
+								{{ apartment.metri_quadri ? apartment.metri_quadri : 'Non specificato' }} mq
+							</span>
 						</div>
 					</div>
 					<hr class="my-4">
 					<!-- mappa -->
 					<div class="col-12 px-2 mb-2">
+
 						<div class="">
 							<h5 class="mb-3">Dove ti troverai</h5>
 						</div>
+						<div class="px-1 my-2" id="address">
+							<img src="../assets/images/home-where.png" alt="">
+							<span id="address">
+								{{ apartment.position.indirizzo }} {{ apartment.position.N_civico }},
+								{{ apartment.position.città }}, {{ apartment.position.Nazione }}
+							</span>
+						</div>
 						<div id="map" class="w-100 rounded-3 mb-2"></div>
 					</div>
-                </div>
+				</div>
 			</div>
 		</div>
 	</main>
@@ -260,6 +273,10 @@ export default {
 
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
+
+.services_list {
+	max-height: 140px;
+}
 
 .bg_message_container {
 	background-color: rgba(0, 0, 0, 0.477);
@@ -353,6 +370,12 @@ export default {
 		#map {
 			height: 250px;
 		}
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.services_list {
+		max-height: 180px;
 	}
 }
 
