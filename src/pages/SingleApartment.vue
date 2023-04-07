@@ -86,16 +86,26 @@ export default {
 </script>
 
 <template>
-	<main class="mt-5 py-4">
-		<div class="container mt-3">
-			<div class="row justify-content-center">
-				<div class="col-12 col-md-9" v-if="(this.message != null)">
-					<div class="alert alert-success alert-dismissible fade show" role="alert">
-						<strong>{{ this.message }}</strong>
+	<main class="mt-5 py-4 position-relative">
+		<div class="container-fluid" v-if="(this.message != null)">
+			<div class="row">
+				<div
+					class="col-12 col-md-9 position-absolute z-3 vh-100 vw-100 d-flex justify-content-center align-items-center bg_message_container">
+					<div class="alert alert-success alert-dismissible fade show mw-100  d-flex" role="alert">
+						<div>
+							<i class="fa-sharp fa-regular fa-circle-check fa-2xl mt-4 me-2" style="color: #0a3622;"></i>
+						</div>
+						<div>
+							<strong class="message_content">{{ this.message }}</strong>
+						</div>
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
 							@click="deleteResponseMessage"></button>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="container mt-3">
+			<div class="row justify-content-center">
 				<!-- Offcanvas messaggio-->
 				<div class="col-12">
 					<button class="btn message_button_position message_button_style" type="button"
@@ -217,6 +227,14 @@ export default {
 
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
+
+.bg_message_container {
+	background-color: rgba(0, 0, 0, 0.477);
+
+	.message_content {
+		font-size: 2rem;
+	}
+}
 
 .offcanvas_size {
 	width: 100%;

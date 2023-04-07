@@ -72,7 +72,7 @@ header {
 	position: fixed;
 	top: 0;
 	right: 0;
-	z-index: 3;
+	z-index: 4;
 	width: 100%;
 
 	nav {
