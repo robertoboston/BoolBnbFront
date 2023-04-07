@@ -234,7 +234,7 @@ export default {
 								{{ apartment.numero_di_stanze ? apartment.numero_di_stanze : 'Non specificato' }}
 							</span>
 						</div>
-						<div class="col-6 col-md-3 text-center pt-3 border-end pe-3">
+						<div class="col-6 col-md-3 text-center pt-3 border_end pe-3">
 							<div class="d-flex align-items-center border rounded p-2 mb-3 shadow">
 								<img class="img-size-40 me-2" src="../assets/images/letti.png" alt="">
 								<h5 class="fw-light fs-6"> Letti</h5>
@@ -383,6 +383,10 @@ export default {
 	}
 }
 
+.border_end {
+	border-right: 1px solid #DDE1E5;
+}
+
 @media screen and (min-width: 600px) {
 	.offcanvas_size {
 		width: 500px;
@@ -404,6 +408,15 @@ export default {
 	.message_toast_position {
 		width: 70%;
 	}
+
+}
+
+@media screen and (max-width: 767px) {
+
+	.border_end {
+		border: 0;
+	}
+
 }
 
 @media screen and (max-width: 767px) {
