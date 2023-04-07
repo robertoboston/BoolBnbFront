@@ -1,22 +1,37 @@
 <script>
 import axios from 'axios';
 import { store } from '../store.js';
+import { useVuelidate } from '@vuelidate/core'
+import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
+
 export default {
 	name: 'SingleApartment',
+	setup: () => ({ v$: useVuelidate() }),
 	data() {
 		return {
 			store,
 			apartment: null,
 			lon: '',
 			lat: '',
-			nome: null,
-			cognome: null,
-			email: null,
+			nome: '',
+			cognome: '',
+			email: '',
 			messaggio: null,
 			message: null,
 		}
 
 	},
+	validations () {
+    return {
+      nome: {
+				required: helpers.withMessage('This field cannot be empty', required),
+      	minLength: minLength(3), maxLength: maxLength(20)
+			},
+      cognome: { required, minLength: minLength(3), maxLength: maxLength(20) }, 
+      email: {required, email},
+      messaggio: {required, minLength: minLength(5), maxLength: maxLength(200)}
+		}
+  },
 	created() {
 		axios.get(`${this.store.baseUrl}api/apartments/${this.$route.params.slug}`).then((response) => {
 			this.apartment = response.data.apartment;
@@ -54,6 +69,16 @@ export default {
 		})
 	},
 	methods: {
+		async submitForm () {
+			const isFormCorrect = await this.v$.$validate()
+			// you can show some extra alert to the user or just leave the each field to show it's `$errors`.
+			if (!isFormCorrect) return;
+
+			const btn = document.getElementById('btn-close');
+			btn.click();
+			
+			this.sendMessage();
+    },
 		sendMessage() {
 			const data = {
 				apartment_id: this.apartment.id,
@@ -150,6 +175,7 @@ export default {
 											<input type="text" class="form-control" id="floatingInput" placeholder="Nome"
 												v-model="nome">
 											<label for="floatingInput">Nome</label>
+											<div class="text-danger" v-if="v$.nome.$error">{{v$.nome.$message}}</div>
 										</div>
 									</div>
 
@@ -158,6 +184,7 @@ export default {
 											<input type="text" class="form-control" id="floatingInput" placeholder="Cognome"
 												v-model="cognome">
 											<label for="floatingInput">Cognome</label>
+											<div class="text-danger" v-if="v$.cognome.$error">Campo non valido</div>
 										</div>
 									</div>
 								</div>
@@ -168,6 +195,7 @@ export default {
 											<input type="email" class="form-control" id="floatingInput"
 												placeholder="name@gmail.com" v-model="email">
 											<label for="floatingInput">Indirizzo Email</label>
+											<div class="text-danger" v-if="v$.email.$error">Campo non valido</div>
 										</div>
 									</div>
 								</div>
@@ -179,6 +207,7 @@ export default {
 												placeholder="Leave a comment here" id="floatingTextarea2"
 												v-model="messaggio"></textarea>
 											<label for="floatingTextarea2">Messaggio</label>
+											<div class="text-danger" v-if="v$.messaggio.$error">Campo non valido</div>
 										</div>
 									</div>
 								</div>
@@ -190,7 +219,8 @@ export default {
 									</div>
 									<div class="col">
 										<button class="btn message_form_submit_button text-white w-100" type="button"
-											@click="sendMessage" data-bs-dismiss="offcanvas">Invia</button>
+											@click.prevent="submitForm">Invia</button>
+										<button class="d-none" id="btn-close" data-bs-dismiss="offcanvas"></button>
 									</div>
 								</div>
 							</form>
