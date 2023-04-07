@@ -108,6 +108,19 @@ export default {
 			<div class="row justify-content-center">
 				<!-- Offcanvas messaggio-->
 				<div class="col-12">
+					<!-- Toast -->
+					<div class="toast align-items-center fade show message_toast_position border-0" role="alert"
+						aria-live="assertive" aria-atomic="true">
+						<div class="d-flex">
+							<div class="toast-body fw-bold">
+								Invia un messaggio al proprietario!
+								<i class="fa-solid fa-paper-plane fa-shake ms-2" style="color: #000000;"></i>
+							</div>
+							<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
+								aria-label="Close"></button>
+						</div>
+					</div>
+					<!-- Message button -->
 					<button class="btn message_button_position message_button_style" type="button"
 						data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
 						title="Invia un messaggio al proprietario"><i class="fa-solid fa-message"></i></button>
@@ -213,7 +226,7 @@ export default {
 					<!-- Dettaglio appartamento -->
 					<div class="row" id="border-none">
 						<div class="col-6 col-md-3 text-center pt-3 border-end ">
-							<div class="d-flex align-items-center border rounded p-2 mb-3 me-3 shadow">
+							<div class="d-flex align-items-center border rounded p-2 mb-3 shadow">
 								<img class="img-size-40 me-2" src="../assets/images/stanze.png" alt="">
 								<h5 class="fw-light fs-6"> Stanze</h5>
 							</div>
@@ -231,7 +244,7 @@ export default {
 							</span>
 						</div>
 						<div class="col-6 col-md-3 text-center pt-3 border-end pe-3">
-							<div class="d-flex align-items-center border rounded p-2 mb-3 me-2 shadow">
+							<div class="d-flex align-items-center border rounded p-2 mb-3 shadow">
 								<img class="img-size-40 me-2" src="../assets/images/bagni(1).png" alt="">
 								<h5 class="fw-light fs-6"> Bagni</h5>
 							</div>
@@ -296,6 +309,16 @@ export default {
 	position: fixed;
 	bottom: 0;
 	right: 0;
+	z-index: 4;
+}
+
+.message_toast_position {
+	margin-right: 2rem;
+	margin-bottom: 2rem;
+	position: fixed;
+	bottom: 0;
+	right: 55px;
+	z-index: 4;
 }
 
 .message_button_style {
@@ -376,6 +399,10 @@ export default {
 @media screen and (max-width: 600px) {
 	.services_list {
 		max-height: 180px;
+	}
+
+	.message_toast_position {
+		width: 70%;
 	}
 }
 
