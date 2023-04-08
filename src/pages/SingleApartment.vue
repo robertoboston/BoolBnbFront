@@ -114,8 +114,8 @@ export default {
 		<div class="container-fluid" v-if="(this.message != null)">
 			<div class="row">
 				<div
-					class="col-12 col-md-9 position-absolute z-3 vh-100 vw-100 d-flex justify-content-center align-items-center bg_message_container">
-					<div class="alert alert-success alert-dismissible fade show mw-100  d-flex" role="alert">
+					class="col-12 col-md-9 position-absolute z-3 h-100 vw-100 d-flex justify-content-center align-items-start bg_message_container">
+					<div class="alert alert-success alert-dismissible fade show mw-100  d-flex margin_top" role="alert">
 						<div>
 							<i class="fa-sharp fa-regular fa-circle-check fa-2xl mt-4 me-2" style="color: #0a3622;"></i>
 						</div>
@@ -239,7 +239,7 @@ export default {
 								<div class="row mt-3">
 									<div class="col">
 										<button class="btn message_form_dismiss_button text-white w-100" type="button"
-										id="my-btn-close" data-bs-dismiss="offcanvas">Annulla</button>
+											id="my-btn-close" data-bs-dismiss="offcanvas">Annulla</button>
 									</div>
 									<div class="col">
 										<button class="btn message_form_submit_button text-white w-100" type="button"
@@ -346,6 +346,10 @@ export default {
 
 .bg_message_container {
 	background-color: rgba(0, 0, 0, 0.477);
+
+	.margin_top {
+		margin-top: 20rem;
+	}
 
 	.message_content {
 		font-size: 2rem;
@@ -479,4 +483,5 @@ export default {
 			height: 200px;
 		}
 	}
-}</style>
+}
+</style>
