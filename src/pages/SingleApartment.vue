@@ -67,16 +67,18 @@ export default {
 	},
 	methods: {
 		async submitForm() {
+			console.log('1');
 			const isFormCorrect = await this.v$.$validate()
 			// you can show some extra alert to the user or just leave the each field to show it's `$errors`.
 			if (!isFormCorrect) return;
 
-			const btn = document.getElementById('btn-close');
+			const btn = document.getElementById('my-btn-close');
 			btn.click();
 
 			this.sendMessage();
 		},
 		sendMessage() {
+			console.log('2')
 			const data = {
 				apartment_id: this.apartment.id,
 				contenuto: this.messaggio,
@@ -237,12 +239,11 @@ export default {
 								<div class="row mt-3">
 									<div class="col">
 										<button class="btn message_form_dismiss_button text-white w-100" type="button"
-											data-bs-dismiss="offcanvas">Annulla</button>
+										id="my-btn-close" data-bs-dismiss="offcanvas">Annulla</button>
 									</div>
 									<div class="col">
 										<button class="btn message_form_submit_button text-white w-100" type="button"
 											@click.prevent="submitForm">Invia</button>
-										<button class="d-none" id="btn-close" data-bs-dismiss="offcanvas"></button>
 									</div>
 								</div>
 							</form>
