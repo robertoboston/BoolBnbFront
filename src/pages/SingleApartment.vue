@@ -23,10 +23,7 @@ export default {
 	},
 	validations () {
     return {
-      nome: {
-				required: helpers.withMessage('This field cannot be empty', required),
-      	minLength: minLength(3), maxLength: maxLength(20)
-			},
+      nome: { required, minLength: minLength(3), maxLength: maxLength(20) },
       cognome: { required, minLength: minLength(3), maxLength: maxLength(20) }, 
       email: {required, email},
       messaggio: {required, minLength: minLength(5), maxLength: maxLength(200)}
@@ -175,7 +172,9 @@ export default {
 											<input type="text" class="form-control" id="floatingInput" placeholder="Nome"
 												v-model="nome">
 											<label for="floatingInput">Nome</label>
-											<div class="text-danger" v-if="v$.nome.$error">{{v$.nome.$message}}</div>
+											<div class="text-danger" v-if="v$.nome.required.$invalid && v$.nome.$error">Questo campo è obbligatorio</div>
+											<div class="text-danger" v-if="v$.nome.minLength.$invalid && v$.nome.$error">Questo campo deve avere minimo 3 caratteri</div>
+											<div class="text-danger" v-if="v$.nome.maxLength.$invalid && v$.nome.$error">Questo campo deve avere massimo 20 caratteri</div>
 										</div>
 									</div>
 
@@ -184,7 +183,10 @@ export default {
 											<input type="text" class="form-control" id="floatingInput" placeholder="Cognome"
 												v-model="cognome">
 											<label for="floatingInput">Cognome</label>
-											<div class="text-danger" v-if="v$.cognome.$error">Campo non valido</div>
+											<!-- {{ v$.cognome.required}} -->
+											<div class="text-danger" v-if="v$.cognome.required.$invalid && v$.cognome.$error">Questo campo è obbligatorio</div>
+											<div class="text-danger" v-if="v$.cognome.minLength.$invalid && v$.cognome.$error">Questo campo deve avere minimo 3 caratteri</div>
+											<div class="text-danger" v-if="v$.cognome.maxLength.$invalid && v$.cognome.$error">Questo campo deve avere massimo 20 caratteri</div>
 										</div>
 									</div>
 								</div>
@@ -195,7 +197,8 @@ export default {
 											<input type="email" class="form-control" id="floatingInput"
 												placeholder="name@gmail.com" v-model="email">
 											<label for="floatingInput">Indirizzo Email</label>
-											<div class="text-danger" v-if="v$.email.$error">Campo non valido</div>
+											<div class="text-danger" v-if="v$.email.required.$invalid && v$.email.$error">Questo campo è obbligatorio</div>
+											<div class="text-danger" v-if="v$.email.email.$invalid && v$.email.$error">Email non valida</div>
 										</div>
 									</div>
 								</div>
@@ -207,7 +210,9 @@ export default {
 												placeholder="Leave a comment here" id="floatingTextarea2"
 												v-model="messaggio"></textarea>
 											<label for="floatingTextarea2">Messaggio</label>
-											<div class="text-danger" v-if="v$.messaggio.$error">Campo non valido</div>
+											<div class="text-danger" v-if="v$.messaggio.required.$invalid && v$.messaggio.$error">Questo campo è obbligatorio</div>
+											<div class="text-danger" v-if="v$.messaggio.minLength.$invalid && v$.messaggio.$error">Questo campo deve avere minimo 5 caratteri</div>
+											<div class="text-danger" v-if="v$.messaggio.maxLength.$invalid && v$.messaggio.$error">Questo campo deve avere massimo 200 caratteri</div>
 										</div>
 									</div>
 								</div>
